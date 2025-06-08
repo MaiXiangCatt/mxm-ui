@@ -1,6 +1,6 @@
 // components.ts
 
-import { MxmButton } from "@mxm-ui/components";
+import { MxmButton, MxmIcon } from "@mxm-ui/components";
 import type { Plugin } from "vue";
 
-export default [MxmButton] as Plugin[];
+export default [MxmButton, MxmIcon] as Plugin[];

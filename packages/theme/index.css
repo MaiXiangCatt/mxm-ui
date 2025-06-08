@@ -1,1 +1,67 @@
-@import './reset.css'
+@import './reset.css';
+
+:root {
+  /* colors */
+  --mxm-color-white: #ffffff;
+  --mxm-color-black: #000000;
+  --colors: (primary: #409eff, success: #67c23a, warning: #e6a23c, danger: #f56c6c, info: #909399);
+  --mxm-bg-color: #ffffff;
+  --mxm-bg-color-page: #f2f3f5;
+  --mxm-bg-color-overlay: #ffffff;
+  --mxm-text-color-primary: #303133;
+  --mxm-text-color-regular: #606266;
+  --mxm-text-color-secondary: #909399;
+  --mxm-text-color-placeholder: #a8abb2;
+  --mxm-text-color-disabled: #c0c4cc;
+  --mxm-border-color: #dcdfe6;
+  --mxm-border-color-light: #e4e7ed;
+  --mxm-border-color-lighter: #ebeef5;
+  --mxm-border-color-extra-light: #f2f6fc;
+  --mxm-border-color-dark: #d4d7de;
+  --mxm-border-color-darker: #cdd0d6;
+  --mxm-fill-color: #f0f2f5;
+  --mxm-fill-color-light: #f5f7fa;
+  --mxm-fill-color-lighter: #fafafa;
+  --mxm-fill-color-extra-light: #fafcff;
+  --mxm-fill-color-dark: #ebedf0;
+  --mxm-fill-color-darker: #e6e8eb;
+  --mxm-fill-color-blank: #ffffff;
+  
+  @each $val, $color in var(--colors) {
+    --mxm-color-$(val): $(color);
+    @for $i from 3 to 9 {
+      --mxm-color-$(val)-light-$(i): mix(#fff, $(color), 0.$(i));
+    }
+    --mxm-color-$(val)-dark-2: mix(#000, $(color), 0.2);
+  }
+
+  /* border */
+  --mxm-border-width: 1px;
+  --mxm-border-style: solid;
+  --mxm-border-color-hover: var(--mxm-text-color-disabled);
+  --mxm-border: var(--mxm-border-width) var(--mxm-border-style) var(--mxm-border-color);
+  --mxm-border-radius-base: 4px;
+  --mxm-border-radius-small: 2px;
+  --mxm-border-radius-round: 20px;
+  --mxm-border-radius-circle: 100%;
+
+  /*font*/
+  --mxm-font-size-extra-large: 20px;
+  --mxm-font-size-large: 18px;
+  --mxm-font-size-medium: 16px;
+  --mxm-font-size-base: 14px;
+  --mxm-font-size-small: 13px;
+  --mxm-font-size-extra-small: 12px;
+  --mxm-font-family: 'Helvetica Neue', Helvetica, 'PingFang SC', 'Hiragino Sans GB',
+    'Microsoft YaHei', '\5fae\8f6f\96c5\9ed1', Arial, sans-serif;
+  --mxm-font-weight-primary: 500;
+
+  /*disabled*/
+  --mxm-disabled-bg-color: var(--mxm-fill-color-light);
+  --mxm-disabled-text-color: var(--mxm-text-color-placeholder);
+  --mxm-disabled-border-color: var(--mxm-border-color-light);
+
+  /*animation*/
+  --mxm-transition-duration: 0.4s;
+  --mxm-transition-duration-fast: 0.2s;
+}

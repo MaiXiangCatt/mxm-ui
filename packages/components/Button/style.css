@@ -1,0 +1,199 @@
+.mxm-button-group {
+  --mxm-button-group-border-color: var(--mxm-border-color-lighter);
+}
+.mxm-button {
+  --mxm-button-font-weight: var(--mxm-font-weight-primary);
+  --mxm-button-border-color: var(--mxm-border-color);
+  --mxm-button-bg-color: var(--mxm-fill-color-blank);
+  --mxm-button-text-color: var(--mxm-text-color-regular);
+  --mxm-button-disabled-text-color: var(--mxm-disabled-text-color);
+  --mxm-button-disabled-bg-color: var(--mxm-fill-color-blank);
+  --mxm-button-disabled-border-color: var(--mxm-border-color-light);
+  --mxm-button-hover-text-color: var(--mxm-color-primary);
+  --mxm-button-hover-bg-color: var(--mxm-color-primary-light-9);
+  --mxm-button-hover-border-color: var(--mxm-color-primary-light-7);
+  --mxm-button-active-text-color: var(--mxm-button-hover-text-color);
+  --mxm-button-active-border-color: var(--mxm-color-primary);
+  --mxm-button-active-bg-color: var(--mxm-button-hover-bg-color);
+  --mxm-button-outline-color: var(--mxm-color-primary-light-5);
+  --mxm-button-active-color: var(--mxm-text-color-primary);
+}
+
+.mxm-button {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  line-height: 1;
+  height: 32px;
+  white-space: nowrap;
+  cursor: pointer;
+  color: var(--mxm-button-text-color);
+  text-align: center;
+  box-sizing: border-box;
+  outline: none;
+  transition: 0.1s;
+  font-weight: var(--mxm-button-font-weight);
+  user-select: none;
+  vertical-align: middle;
+  -webkit-appearance: none;
+  background-color: var(--mxm-button-bg-color);
+  border: var(--mxm-border);
+  border-color: var(--mxm-button-border-color);
+  padding: 8px 15px;
+  font-size: var(--mxm-font-size-base);
+  border-radius: var(--mxm-border-radius-base);
+  & + & {
+    margin-left: 12px;
+  }
+  &:hover,
+  &:focus {
+    color: var(--mxm-button-hover-text-color);
+    border-color: var(--mxm-button-hover-border-color);
+    background-color: var(--mxm-button-hover-bg-color);
+    outline: none;
+  }
+  &:active {
+    color: var(--mxm-button-active-text-color);
+    border-color: var(--mxm-button-active-border-color);
+    background-color: var(--mxm-button-active-bg-color);
+    outline: none;
+  }
+  /*plain*/
+  &.is-plain {
+    --mxm-button-hover-text-color: var(--mxm-color-primary);
+    --mxm-button-hover-bg-color: var(--mxm-fill-color-blank);
+    --mxm-button-hover-border-color: var(--mxm-color-primary);
+  }
+  /*round*/
+  &.is-round {
+    border-radius: var(--mxm-border-radius-round);
+  }
+  /*circle*/
+  &.is-circle {
+    border-radius: 50%;
+    padding: 8px;
+  }
+  /*disabled*/
+  &.is-loading,
+  &.is-disabled,
+  &.is-disabled:hover,
+  &.is-disabled:focus,
+  &[disabled],
+  &[disabled]:hover,
+  &[disabled]:focus {
+    color: var(--mxm-button-disabled-text-color);
+    cursor: not-allowed;
+    background-image: none;
+    background-color: var(--mxm-button-disabled-bg-color);
+    border-color: var(--mxm-button-disabled-border-color);
+  }
+  [class*='er-icon'] {
+    width: 1em;
+    height: 1em;
+  }
+}
+@each $val in primary, success, warning, info, danger {
+  .mxm-button--$(val) {
+    --mxm-button-text-color: var(--mxm-color-white);
+    --mxm-button-bg-color: var(--mxm-color-$(val));
+    --mxm-button-border-color: var(--mxm-color-$(val));
+    --mxm-button-outline-color: var(--mxm-color-$(val)-light-5);
+    --mxm-button-active-color: var(--mxm-color-$(val)-dark-2);
+    --mxm-button-hover-text-color: var(--mxm-color-white);
+    --mxm-button-hover-bg-color: var(--mxm-color-$(val)-light-3);
+    --mxm-button-hover-border-color: var(--mxm-color-$(val)-light-3);
+    --mxm-button-active-bg-color: var(--mxm-color-$(val)-dark-2);
+    --mxm-button-active-border-color: var(--mxm-color-$(val)-dark-2);
+    --mxm-button-disabled-text-color: var(--mxm-color-white);
+    --mxm-button-disabled-bg-color: var(--mxm-color-$(val)-light-5);
+    --mxm-button-disabled-border-color: var(--mxm-color-$(val)-light-5);
+  }
+  .mxm-button--$(val).is-plain {
+    --mxm-button-text-color: var(--mxm-color-$(val));
+    --mxm-button-bg-color: var(--mxm-color-$(val)-light-9);
+    --mxm-button-border-color: var(--mxm-color-$(val)-light-5);
+    --mxm-button-hover-text-color: var(--mxm-color-white);
+    --mxm-button-hover-bg-color: var(--mxm-color-$(val));
+    --mxm-button-hover-border-color: var(--mxm-color-$(val));
+    --mxm-button-active-text-color: var(--mxm-color-white);
+
+    --mxm-button-disabled-text-color: var(--mxm-color-$(val)-light-5);
+    --mxm-button-disabled-bg-color: var(--mxm-color-$(val)-light-9);
+    --mxm-button-disabled-border-color: var(--mxm-color-$(val)-light-8);
+  }
+}
+.mxm-button--large {
+  --mxm-button-size: 40px;
+  height: var(--mxm-button-size);
+  padding: 12px 19px;
+  font-size: var(--mxm-font-size-base);
+  border-radius: var(--mxm-border-radius-base);
+  /*circle*/
+  &.is-circle {
+    border-radius: 50%;
+    padding: 12px;
+  }
+}
+.mxm-button--small {
+  --mxm-button-size: 24px;
+  height: var(--mxm-button-size);
+  padding: 5px 11px;
+  font-size: 12px;
+  border-radius: calc(var(--mxm-border-radius-base) - 1px);
+  /*circle*/
+  &.is-circle {
+    border-radius: 50%;
+    padding: 5px;
+  }
+  [class*='er-icon'] {
+    width: 12px;
+    height: 12px;
+  }
+}
+
+.mxm-button-group {
+  display: inline-block;
+  vertical-align: middle;
+
+  &::after {
+    clear: both;
+  }
+  & > :deep(.mxm-button){
+    float: left;
+    position: relative;
+    margin-left: 0;
+    &:first-child{
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+      border-right-color: var(--mxm-button-group-border-color);
+    }
+    &:last-child{
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0; 
+      border-left-color: var(--mxm-button-group-border-color);
+    }
+    &:not(:first-child):not(:last-child) {
+      border-radius: 0;
+
+      border-left-color: var(--mxm-button-group-border-color);
+      border-right-color: var(--mxm-button-group-border-color);
+    }
+    &:not(:last-child) {
+      margin-right: -1px;
+    }
+    &:first-child:last-child {
+      border-top-right-radius: var(--mxm-border-radius-base);
+      border-bottom-right-radius: var(--mxm-border-radius-base);
+      border-top-left-radius: var(--mxm-border-radius-base);
+      border-bottom-left-radius: var(--mxm-border-radius-base);
+
+      &.is-round {
+        border-radius: var(--mxm-border-radius-round);
+      }
+
+      &.is-circle {
+        border-radius: 50%;
+      }
+    }
+  }
+}
