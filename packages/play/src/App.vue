@@ -1,6 +1,6 @@
 <template>
   <div>
-    <mxm-button type="primary" size="small">一个测试用按钮1</mxm-button>
+    <mxm-button type="primary" size="large" icon="home"></mxm-button>
   </div>
 </template>
 
