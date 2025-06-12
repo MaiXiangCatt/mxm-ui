@@ -42,6 +42,9 @@ export default defineConfig({
           return assetInfo.name as string;
         },
         manualChunks(id) {
+          if(id.includes("plugin-vue:export-helper")) {
+            return "utils"
+          }
           if(id.includes("node_modules")) {
             return "vendor"
           }
