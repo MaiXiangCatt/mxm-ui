@@ -7,5 +7,5 @@ import { fas } from "@fortawesome/free-solid-svg-icons"
 const installer = makeInstaller(components);
 library.add(fas)
 
-export * from "../components";
+export * from "@mxm-ui/components";
 export default installer;

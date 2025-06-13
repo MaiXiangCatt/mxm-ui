@@ -17,6 +17,8 @@ defineOptions({
 })
 const props = defineProps<CollapseProps>()
 const emits = defineEmits<CollapseEmits>()
+
+//我们维护一个可变的响应式数组，里面存放item的name，代表当前打开的items。点击某个item的时候，看它是否在数组中，进行添加或者删除;
 const activeNames = ref(props.modelValue)
 
 watchEffect(() => {
@@ -48,6 +50,8 @@ function updateActiveNames(newNames: CollapseItemName[]) {
   emits("update:modelValue", newNames)
   emits("change", newNames)
 }
+
+//这里之所以要用一个watch来侦听modelValue，是因为用户可能在使用组件的时候异步改变modelValue的值，如果没有watch那我们只会在刚开始拿一次modelValue;
 watch(
   () => props.modelValue, 
   (newNames) => {

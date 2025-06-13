@@ -15,14 +15,22 @@
           operations by style updates and interactive effects;
         </div>
       </mxm-collapse-item>
+      <mxm-collapse-item title="testC" name="3">
+        <div>测试测试测试测试测试测试v</div>
+      </mxm-collapse-item>
     </mxm-collapse>
+    <h2>{{ activeNames }}</h2>
+    <mxm-icon icon="user" type="primary"></mxm-icon>
   </div>
 </template>
 
 <script setup lang="ts">
 import { ref } from 'vue';
 
-const activeNames = ref(['1'])
+const activeNames = ref(["1"])
+setTimeout(() => {
+  activeNames.value.splice(0, 1, "3")
+}, 3000);
 </script>
 
 <style scoped>

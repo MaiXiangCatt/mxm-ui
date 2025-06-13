@@ -54,6 +54,10 @@ const props = withDefaults(defineProps<ButtonProps>(), {
   throttleDuration: 500
 })
 
+const ctx = inject(BUTTON_GROUP_CTX_KEY, void 0)
+const size = computed(() => ctx?.size ?? props?.size ?? "")
+const type = computed(() => ctx?.type ?? props?.type ?? "")
+const disabled = computed(() => ctx?.disabled || props.disabled || false)
 const slots = defineSlots()
 
 const emits = defineEmits<ButtonEmits>()
@@ -69,17 +73,17 @@ const realBtnClickHandler = (e: MouseEvent) => {
 
 const _ref = ref<HTMLButtonElement>()
 defineExpose<ButtonInstance>({
-  ref: _ref
+  ref: _ref,
+  disabled,
+  size,
+  type
 })
 
 const iconStyle = computed(() => {
   return {marginRight: slots.default ? "6px": "0px"}
 })
 
-const ctx = inject(BUTTON_GROUP_CTX_KEY, void 0)
-const size = computed(() => ctx?.size ?? props?.size ?? "")
-const type = computed(() => ctx?.type ?? props?.type ?? "")
-const disabled = computed(() => ctx?.disabled || props.disabled || false)
+
 </script>
 
 <style scoped>

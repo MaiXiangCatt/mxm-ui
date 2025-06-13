@@ -1,7 +1,7 @@
 <template>
   <i
     class="mxm-icon"
-    :class="[`mxm-icon-${props.type}`]"
+    :class="[`mxm-icon--${props.type}`]"
     :style="customStyle"
     v-bind="$attrs"
     >

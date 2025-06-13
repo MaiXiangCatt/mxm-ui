@@ -65,7 +65,7 @@
     --mxm-button-hover-border-color: var(--mxm-color-primary);
   }
   /*round*/
-  &.is-round {
+  &.is-ro  und {
     border-radius: var(--mxm-border-radius-round);
   }
   /*circle*/

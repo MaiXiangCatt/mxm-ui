@@ -13,7 +13,8 @@
     </div>
     <transition name="slide" v-on="transitionEvents">
       <div class="mxm-collapse-item__wapper" v-show="isActive">
-        <div class="mxm-collapse-item__content" :id="`item-content-${name}`">
+        <div class="mxm-collapse-item__content" 
+             :id="`item-content-${name}`">
           <slot></slot>
         </div>
       </div>

@@ -2,6 +2,12 @@ import { defineConfig } from "vite";
 import vue from "@vitejs/plugin-vue";
 import { resolve } from "path";
 import dts from 'vite-plugin-dts'
+import { readdirSync } from "fs";
+import { delay } from "lodash-es";
+import shell from 'shelljs'
+import hooks from './hooksPlugin'
+
+const TRY_MOVE_STYLES_DELAY = 800 as const
 
 const COMP_NAMES = [
   "Alert",
@@ -12,15 +18,30 @@ const COMP_NAMES = [
   "Icon"
 ] as const;
 
+function moveStyles() {
+  try {
+    readdirSync('./dist/es/theme')
+    shell.mv('./dist/es/theme', './dist')
+  } catch(_) {
+    delay(moveStyles, TRY_MOVE_STYLES_DELAY)
+  }
+}
+
 export default defineConfig({
   plugins: [
     vue(), 
     dts({
     tsconfigPath: '../../tsconfig.build.json',
     outDir: 'dist/types',
-  })],
+  }),
+    hooks({
+      rmFiles: ['./dist/es', './dist/theme', './dist/types'],
+      afterBuild: moveStyles
+    })
+],
   build: {
     outDir: 'dist/es',
+    cssCodeSplit: true,
     lib: {
       entry: resolve(__dirname, './index.ts'),
       name: 'mxm-ui',
@@ -39,6 +60,9 @@ export default defineConfig({
       output: {
         assetFileNames: (assetInfo) => {
           if(assetInfo.name === "style.css") return "index.css";
+          if(assetInfo.type === "asset" && /\.(css)$/i.test(assetInfo.name as string)) {
+            return `theme/[name].[ext]`
+          }
           return assetInfo.name as string;
         },
         manualChunks(id) {
