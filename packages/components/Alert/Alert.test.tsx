@@ -54,7 +54,7 @@ describe("Alert.vue", () => {
         default: desc,
       },
       global: {
-        stubs: ["ErIcon"],
+        stubs: ["MxmIcon"],
       },
     });
 
@@ -126,6 +126,6 @@ describe("Alert.vue", () => {
     await wrapper.vm.close();
     expect(wrapper.find(".mxm-alert").attributes().style).toBe("display: none;");
     await wrapper.vm.open();
-    expect(wrapper.find(".mxmq-alert").attributes().style).toBe("");
+    expect(wrapper.find(".mxm-alert").attributes().style).toBe("");
   });
 });

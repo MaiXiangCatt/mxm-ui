@@ -54,7 +54,7 @@ describe("Collapse.vue", () => {
   });
 
   test("测试基础结构以及对应文本", () => {
-    // lenght
+    // length
     expect(headers.length).toBe(3);
     expect(contents.length).toBe(3);
 

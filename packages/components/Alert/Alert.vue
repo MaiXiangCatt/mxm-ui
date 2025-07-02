@@ -5,7 +5,8 @@
          role="alert"
          :class="{
           [`mxm-alert__${type}`]: type,
-          [`mxm-alert__${effect}`]: effect
+          [`mxm-alert__${effect}`]: effect,
+          'text-center': center
          }">
       <mxm-icon v-if="showIcon"
                 class="mxm-alert__icon"
@@ -16,7 +17,7 @@
         <span class="mxm-alert__title"
               :class="{'with-desc': withDescription}"
               :style="{ display: center && !showIcon ? 'flow' : 'inline' }">
-          <slot>{{ title }}</slot>
+          <slot name="title">{{ title }}</slot>
         </span>
         <p class="mxm-alert__description">
           <slot>{{ description }}</slot>
