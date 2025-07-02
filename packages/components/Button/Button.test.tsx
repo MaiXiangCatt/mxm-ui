@@ -70,6 +70,7 @@ describe("Button.vue", () => {
     await wrapper.trigger("click");
     expect(wrapper.emitted().click).toHaveLength(1);
   });
+
    // Exception Handling: loading state
   it("should display loading icon and not emit click event when button is loading", async () => {
     const wrapper = mount(Button, {
