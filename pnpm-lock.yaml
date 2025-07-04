@@ -20,6 +20,9 @@ importers:
       '@mxm-ui/utils':
         specifier: workspace:*
         version: link:packages/utils
+      '@popperjs/core':
+        specifier: ^2.11.8
+        version: 2.11.8
       lodash-es:
         specifier: ^4.17.21
         version: 4.17.21
@@ -39,9 +42,6 @@ importers:
       '@fortawesome/vue-fontawesome':
         specifier: ^3.0.8
         version: 3.0.8(@fortawesome/fontawesome-svg-core@6.7.2)(vue@3.5.16(typescript@5.8.3))
-      '@popperjs/core':
-        specifier: ^2.11.8
-        version: 2.11.8
       '@types/lodash-es':
         specifier: ^4.17.12
         version: 4.17.12

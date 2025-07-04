@@ -23,6 +23,11 @@
     <mxm-icon icon="user" type="primary"></mxm-icon>
     <mxm-alert type="success" title="测试标题" description="测试内容test" center="true"></mxm-alert>
     <mxm-alert type="primary" title="primary颜色主题" description="测试测试测试" :closable="false"></mxm-alert>
+    <br>
+    <mxm-tooltip content="This is a test tooltip" placement="bottom-start" trigger="click">
+      <mxm-button type="danger" icon="user">This is TooltipButton</mxm-button>
+    </mxm-tooltip>
+
   </div>
 </template>
 
