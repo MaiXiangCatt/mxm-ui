@@ -24,20 +24,31 @@
     <mxm-alert type="success" title="测试标题" description="测试内容test" center="true"></mxm-alert>
     <mxm-alert type="primary" title="primary颜色主题" description="测试测试测试" :closable="false"></mxm-alert>
     <br>
-    <mxm-tooltip content="This is a test tooltip" placement="bottom-start" trigger="click">
+    <mxm-tooltip content="This is a test tooltip" placement="bottom-start" trigger="click" ref="tooltipEl">
       <mxm-button type="danger" icon="user">This is TooltipButton</mxm-button>
     </mxm-tooltip>
+
 
   </div>
 </template>
 
 <script setup lang="ts">
 import { ref } from 'vue';
+import type { TooltipInstance } from '../../components/Tooltip/types';
 
 const activeNames = ref(["1"])
 // setTimeout(() => {
 //   activeNames.value.splice(0, 1, "3")
 // }, 3000);
+
+const tooltipEl = ref<TooltipInstance>()
+
+const openTooltip = () => {
+  tooltipEl.value?.show()
+}
+const closeTooltip = () => {
+  tooltipEl.value?.hide()
+}
 </script>
 
 <style scoped>
