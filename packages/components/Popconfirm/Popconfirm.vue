@@ -7,10 +7,10 @@
           {{ title }}
         </div>
         <div class="mxm-popconfirm__action">
-          <mxm-button size="small" :type="cancelButtonType" @click="cancel">
+          <mxm-button class="mxm-popconfirm__cancel" size="small" :type="cancelButtonType" @click="cancel">
             {{ cancelButtonText }}
           </mxm-button>
-          <mxm-button size="small" :type="confirmButtonType" @click="confirm">
+          <mxm-button class="mxm-popconfirm__confirm" size="small" :type="confirmButtonType" @click="confirm">
             {{ confirmButtonText }}
           </mxm-button>
         </div>
