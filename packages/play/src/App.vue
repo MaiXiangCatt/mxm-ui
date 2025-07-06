@@ -28,7 +28,9 @@
       <mxm-button type="danger" icon="user">This is TooltipButton</mxm-button>
     </mxm-tooltip>
 
-
+    <mxm-popconfirm title="你确定要删除吗" @confirm="confirmDelete">
+      <mxm-button type="danger" icon="delete">删除</mxm-button>
+    </mxm-popconfirm>
   </div>
 </template>
 
@@ -43,11 +45,8 @@ const activeNames = ref(["1"])
 
 const tooltipEl = ref<TooltipInstance>()
 
-const openTooltip = () => {
-  tooltipEl.value?.show()
-}
-const closeTooltip = () => {
-  tooltipEl.value?.hide()
+const confirmDelete = () => {
+  console.log('confirm')
 }
 </script>
 
