@@ -11,7 +11,8 @@
     @click="handleClick"
   >
     <slot>
-      {{ label }}
+      <component :is="label" v-if="typeof label === 'object'"></component>
+      <template v-else> {{ label }} </template>
     </slot>
   </li>
 </template>

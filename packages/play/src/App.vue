@@ -31,11 +31,24 @@
     <mxm-popconfirm title="你确定要删除吗" @confirm="confirmDelete">
       <mxm-button type="danger" icon="delete">删除</mxm-button>
     </mxm-popconfirm>
+    <br>
+    <mxm-dropdown :items="dropdownItems" trigger="click">
+      <span class="dropdown-link">
+        Dropdown List
+        <mxm-icon icon="angle-down"></mxm-icon>
+      </span>
+      <!-- <template #dropdown>
+        <mxm-dropdown-item>1</mxm-dropdown-item>
+        <mxm-dropdown-item>2</mxm-dropdown-item>
+        <mxm-dropdown-item>3</mxm-dropdown-item>
+        <mxm-dropdown-item>4</mxm-dropdown-item>
+      </template> -->
+    </mxm-dropdown>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, h } from 'vue';
 import type { TooltipInstance } from '../../components/Tooltip/types';
 
 const activeNames = ref(["1"])
@@ -48,6 +61,13 @@ const tooltipEl = ref<TooltipInstance>()
 const confirmDelete = () => {
   console.log('confirm')
 }
+
+const dropdownItems = [
+  { label: h('b', 'this is a bold node')},
+  { label: 'b', divided: true},
+  { label: 'c', divided: true},
+  { label: 'd', disabled: true, divided: true}
+]
 </script>
 
 <style scoped>

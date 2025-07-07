@@ -1,6 +1,27 @@
 // components.ts
 
-import { MxmButton, MxmIcon, MxmButtonGroup, MxmCollapse, MxmCollapseItem , MxmAlert, MxmTooltip, MxmPopconfirm} from "@mxm-ui/components";
+import { 
+  MxmButton,
+  MxmIcon,
+  MxmButtonGroup,
+  MxmCollapse,
+  MxmCollapseItem,
+  MxmAlert, 
+  MxmTooltip,
+  MxmPopconfirm,
+  MxmDropdown,
+  MxmDropdownItem
+} from "@mxm-ui/components";
 import type { Plugin } from "vue";
 
-export default [MxmButton, MxmIcon, MxmButtonGroup, MxmCollapse, MxmCollapseItem, MxmAlert, MxmTooltip, MxmPopconfirm] as Plugin[];
+export default [
+  MxmButton,
+  MxmIcon,
+  MxmButtonGroup, 
+  MxmCollapse, 
+  MxmCollapseItem, 
+  MxmAlert, 
+  MxmTooltip, 
+  MxmPopconfirm,
+  MxmDropdown,
+  MxmDropdownItem] as Plugin[];
