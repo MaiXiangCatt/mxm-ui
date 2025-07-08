@@ -1,0 +1,81 @@
+.mxm-message {
+  --mxm-message-bg-color: var(--mxm-color-info-light-9);
+  --mxm-message-border-color: var(--mxm-border-color-lighter);
+  --mxm-message-padding: 15px 19px;
+  --mxm-message-close-size: 16px;
+  --mxm-message-close-margin: 7px;
+  --mxm-message-close-icon-color: var(--mxm-text-color-placeholder);
+  --mxm-message-close-hover-color: var(--mxm-text-color-secondary);
+  --mxm-message-icon-size: 16px;
+  --mxm-message-icon-margin: 8px;
+}
+
+.mxm-message {
+  width: fit-content;
+  max-width: calc(100% - 32px);
+  box-sizing: border-box;
+  border-radius: var(--mxm-border-radius-base);
+  border-width: var(--mxm-border-width);
+  border-style: var(--mxm-border-style);
+  border-color: var(--mxm-message-border-color);
+  position: fixed;
+  left: 50%;
+  top: 20px;
+  transform: translateX(-50%);
+  background-color: var(--mxm-message-bg-color);
+  padding: var(--mxm-message-padding);
+  display: flex;
+  align-items: center;
+  transition: top var(--mxm-transition-duration), opacity var(--mxm-transition-duration),
+    transform var(--mxm-transition-duration);
+  .mxm-message__icon {
+    color: var(--mxm-message-text-color);
+    font-size: var(--mxm-message-icon-size);
+    width: var(--mxm-message-icon-size);
+    margin-right: var(--mxm-message-icon-margin);
+  }
+  .mxm-message__content {
+    color: var(--mxm-message-text-color);
+    overflow-wrap: break-word;
+  }
+  &.is-close .mxm-message__content {
+    padding-right: 10px;
+  }
+  &.text-center {
+    justify-content: center;
+  }
+  .mxm-message__close {
+    display: flex;
+    align-items: center;
+    margin-left: var(--mxm-message-close-margin);
+  }
+  .mxm-message__close .mxm-icon {
+    cursor: pointer;
+  }
+}
+
+@each $val in info, success, warning, danger {
+  .mxm-message--$(val) {
+    --mxm-message-bg-color: var(--mxm-color-$(val)-light-9);
+    --mxm-message-border-color: var(--mxm-color-$(val)-light-8);
+    --mxm-message-text-color: var(--mxm-color-$(val));
+    .mxm-message__close {
+      --mxm-icon-color: var(--mxm-color-$(val));
+    }
+  }
+}
+
+.mxm-message--error {
+  --mxm-message-bg-color: var(--mxm-color-danger-light-9);
+  --mxm-message-border-color: var(--mxm-color-danger-light-8);
+  --mxm-message-text-color: var(--mxm-color-danger);
+  .mxm-message__close {
+    --mxm-icon-color: var(--mxm-color-danger);
+  }
+}
+
+.mxm-message.fade-up-enter-from,
+.mxm-message.fade-up-leave-to {
+  opacity: 0;
+  transform: translate(-50%, -100%);
+}

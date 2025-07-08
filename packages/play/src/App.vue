@@ -44,12 +44,20 @@
         <mxm-dropdown-item>4</mxm-dropdown-item>
       </template> -->
     </mxm-dropdown>
+    <br>
+    <br>
+    <mxm-button is-plain: true @click="open1">Info test Message</mxm-button>
+    <mxm-button type="success" @click="open2">Success test Message</mxm-button> 
+    <mxm-button type="warning" @click="open3">Warning test Message</mxm-button>
+    <mxm-button type="danger" @click="open4">Danger test Message</mxm-button>
+    <mxm-button type="primary" @click="closeAll">点击关闭所有message</mxm-button>
   </div>
 </template>
 
 <script setup lang="ts">
 import { ref, h } from 'vue';
 import type { TooltipInstance } from '../../components/Tooltip/types';
+import { MxmMessage } from 'mxm-ui';
 
 const activeNames = ref(["1"])
 // setTimeout(() => {
@@ -68,6 +76,33 @@ const dropdownItems = [
   { label: 'c', divided: true},
   { label: 'd', disabled: true, divided: true}
 ]
+
+const open1 = () => {
+  MxmMessage({
+    showClose: true,
+    message: 'This is a info message'
+  })
+}
+
+const open2 = () => {
+  MxmMessage.success('This is a success message')
+}
+
+const open3 = () => {
+  MxmMessage({
+    showClose: true,
+    message: 'This is a warning message',
+    type: 'warning'
+  })
+}
+
+const open4 = () => {
+  MxmMessage.danger('This is a danger message')
+}
+
+const closeAll = () => {
+  MxmMessage.closeAll()
+}
 </script>
 
 <style scoped>

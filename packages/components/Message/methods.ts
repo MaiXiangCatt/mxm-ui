@@ -9,8 +9,8 @@ import type {
   MessageType,
   MessageProps} from "./types";
 import { messageTypes } from "./types";
-import { useId } from "@mxm-ui/hooks";
-import { each, findIndex, isString, set } from "lodash-es";
+import { useId, useZindex } from "@mxm-ui/hooks";
+import { each, findIndex, isString, set, get } from "lodash-es";
 import MessageConstructor from "./Message.vue";
 
 
@@ -22,6 +22,8 @@ export const messageDefaults = {
   offset: 10,
   transitionName: 'fade-up'
 }
+
+const { nextZindex } = useZindex()
 
 const normalizeOptions = (options: MessageParams): CreateMessageProps => {
   const result = !options || isVNode(options) || isString(options) ? { message: options} : options
@@ -43,7 +45,7 @@ const createMessage = (props: CreateMessageProps): MessageInstance => {
   const _props: MessageProps = {
     ...props,
     id,
-    zIndex: 200,
+    zIndex: nextZindex(),
     onDestroy: destroy
   }
 
@@ -53,6 +55,7 @@ const createMessage = (props: CreateMessageProps): MessageInstance => {
 
   document.body.appendChild(container.firstElementChild!)
 
+  //vm其实就是组件实例，当一个vnode被渲染成一个真实的组件后，Vue会将该组件的实例挂载到 vnode 的 component property上。获取组件实例之后，我们就可以通过vm.exposed访问到组件通过defineExpose暴露出的内容，包括close的方法等等
   const vm = vnode.component!
   const handler: MessageHandler = {
     close: () => vm.exposed!.close()
@@ -77,6 +80,12 @@ export const message: MessageFn & Partial<Message> = (options = {}) => {
   return instance.handler
 }
 
+export function getLastBottomOffset(this: MessageProps) {
+  const idx = findIndex(instances, {id: this.id})
+  if(idx <= 0) return 0;
+  return get(instances, [idx - 1, 'vm', 'exposed', 'bottomOffset', 'value'])
+}
+
 export function closeAll(type?: MessageType) {
   each(instances, (instance) => {
     if(type) {
@@ -88,6 +97,7 @@ export function closeAll(type?: MessageType) {
   })
 }
 
+//给message对象添加message.success等快捷方法
 each(messageTypes, (type) => {
   set(message, type, (options: MessageParams) => {
     const normalized = normalizeOptions(options)

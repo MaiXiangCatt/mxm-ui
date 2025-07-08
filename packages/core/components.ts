@@ -10,7 +10,8 @@ import {
   MxmTooltip,
   MxmPopconfirm,
   MxmDropdown,
-  MxmDropdownItem
+  MxmDropdownItem,
+  MxmMessage
 } from "@mxm-ui/components";
 import type { Plugin } from "vue";
 
@@ -24,4 +25,6 @@ export default [
   MxmTooltip, 
   MxmPopconfirm,
   MxmDropdown,
-  MxmDropdownItem] as Plugin[];
+  MxmDropdownItem,
+  MxmMessage
+] as Plugin[];

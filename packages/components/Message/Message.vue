@@ -1,7 +1,8 @@
 <template>
   <Transition
     :name="transitionName"
-    @after-leave="!visible && onDestory()">
+    @enter="boxHeight = messageRef!.getBoundingClientRect().height"
+    @after-leave="!visible && onDestroy()">
     <div
       ref="messageRef"
       class="mxm-message"
@@ -30,10 +31,12 @@
 </template>
 
 <script setup lang="ts">
-import type { MessageProps } from './types';
-import { ref, onMounted, computed } from 'vue';
-import { delay } from 'lodash-es';
-import { typeIconMap, RenderVnode } from '@mxm-ui/utils';
+import type { MessageProps, MessageCompInstance } from './types';
+import { ref, onMounted, computed, watch } from 'vue';
+import { delay, bind } from 'lodash-es';
+import { typeIconMap, RenderVnode, addUnit } from '@mxm-ui/utils';
+import { useOffset, useEventListener } from '@mxm-ui/hooks';
+import { getLastBottomOffset } from './methods';
 
 import MxmIcon from '../Icon/Icon.vue';
 
@@ -54,10 +57,17 @@ const messageRef = ref<HTMLDivElement>()
 //计算盒子的高度
 const boxHeight = ref(0)
 
+const { topOffset, bottomOffset } = useOffset({
+  offset: props.offset, 
+  boxHeight: boxHeight,
+  getLastBottomOffset: bind(getLastBottomOffset, props)
+})
+
 const iconName = computed(() => typeIconMap.get(props.type) ?? 'circle-info')
 
 const cssStyle = computed(() => {
   return {
+    top: addUnit(topOffset.value),
     zIndex: props.zIndex}
 })
 
@@ -75,16 +85,31 @@ function clearTimer() {
   clearTimeout(timer)
 }
 
+watch(visible, (newVal) => {
+  if(!newVal) {
+    boxHeight.value = -props.offset
+  }
+})
+
+//按下esc关闭
+useEventListener(document, 'keydown', (e: Event) => {
+  const {code} = e as KeyboardEvent
+  if(code === 'Escape') {
+    close()
+  }
+})
+
 onMounted(() => {
   visible.value = true
   startTimer()
 })
 
-defineExpose({
-  close
+defineExpose<MessageCompInstance>({
+  close,
+  bottomOffset
 })
 </script>
 
 <style scoped>
-
+@import './style.css'
 </style>
