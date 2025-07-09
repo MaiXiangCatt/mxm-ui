@@ -92,8 +92,10 @@ export function closeAll(type?: MessageType) {
       if(instance.props.type === type) {
         instance.handler.close()
       }
+    } else {
+      instance.handler.close()
     }
-    instance.handler.close()
+
   })
 }
 

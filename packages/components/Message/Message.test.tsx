@@ -61,18 +61,40 @@ describe('createMessage', () => {
     expect(document.querySelectorAll('.mxm-message').length).toBe(0)
   })
 
-  test('duration不为0时能够定时关闭', async() => {
+  test('鼠标移入时应该清除定时器，移出时重新计时', async () => {
     vi.useFakeTimers()
-    message( { message: 'test message', duration: 1000})
+    message({ message: 'hover test', duration: 2000 })
+    await nextTick()
+    const messageEl = document.querySelector('.mxm-message')
+    expect(messageEl).toBeTruthy()
+
+    const enterEvent = new MouseEvent('mouseenter')
+    messageEl!.dispatchEvent(enterEvent)
+    vi.advanceTimersByTime(2000)
     await nextTick()
     expect(document.querySelector('.mxm-message')).toBeTruthy()
 
-    vi.advanceTimersByTime(1000)
+    const leaveEvent = new MouseEvent('mouseleave')
+    messageEl!.dispatchEvent(leaveEvent)
+    vi.advanceTimersByTime(2000)
     await nextTick()
     expect(document.querySelector('.mxm-message')?.className).toContain('fade-up-leave-active')
     vi.advanceTimersByTime(300)
     await nextTick()
     expect(document.querySelector('.mxm-message')).toBeFalsy()
+
     vi.useRealTimers()
+  });
+
+  test('closeAll 能正确关闭某个type的Message', async () => {
+    message.success!({ message: 'success test1', duration: 0})
+    message.error!({ message: 'error test', duration: 0})
+    await rAF()
+
+    expect(document.querySelectorAll('.mxm-message').length).toBe(2)
+
+    closeAll('success')
+    await rAF()
+    expect(document.querySelectorAll('.mxm-message').length).toBe(1)
   })
 })
