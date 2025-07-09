@@ -2,7 +2,7 @@
   "name": "@mxm-ui/docs",
   "version": "1.0.0",
   "description": "",
-  "tyoe": "module",
+  "type": "module",
   "main": "index.js",
   "scripts": {
     "dev": "vitepress dev",
