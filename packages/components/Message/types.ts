@@ -22,7 +22,7 @@ export interface MessageProps {
   center?: boolean;
   type?: MessageType;
   offset?: number;
-  zIndex?: number;
+  zIndex: number;
   transitionName?: string;
   onDestroy: () => void;
 }

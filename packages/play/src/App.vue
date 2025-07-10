@@ -29,7 +29,7 @@
     </mxm-tooltip>
 
     <mxm-popconfirm title="你确定要删除吗" @confirm="confirmDelete">
-      <mxm-button type="danger" icon="delete">删除</mxm-button>
+      <mxm-button type="danger">删除</mxm-button>
     </mxm-popconfirm>
     <br>
     <mxm-dropdown :items="dropdownItems" trigger="click">
@@ -51,13 +51,16 @@
     <mxm-button type="warning" @click="open3">Warning test Message</mxm-button>
     <mxm-button type="danger" @click="open4">Danger test Message</mxm-button>
     <mxm-button type="primary" @click="closeAll">点击关闭所有message</mxm-button>
+    <br>
+    <br>
+    <mxm-button type="info" @click="oepnNotification1">top-right Notification test</mxm-button>
   </div>
 </template>
 
 <script setup lang="ts">
 import { ref, h } from 'vue';
 import type { TooltipInstance } from '../../components/Tooltip/types';
-import { MxmMessage } from 'mxm-ui';
+import { MxmMessage, MxmNotification } from 'mxm-ui';
 
 const activeNames = ref(["1"])
 // setTimeout(() => {
@@ -102,6 +105,13 @@ const open4 = () => {
 
 const closeAll = () => {
   MxmMessage.closeAll()
+}
+
+const oepnNotification1 = () => {
+  MxmNotification({
+    title: 'test notification',
+    message: 'top-right notification'
+  })
 }
 </script>
 

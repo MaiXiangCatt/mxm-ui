@@ -1,0 +1,95 @@
+.mxm-notification {
+  --mxm-notification-width: 330px;
+  --mxm-notification-padding: 14px 26px 14px 13px;
+  --mxm-notification-radius: 8px;
+  --mxm-notification-shadow: var(--mxm-box-shadow-light);
+  --mxm-notification-border-color: var(--mxm-border-color-lighter);
+  --mxm-notification-icon-size: 24px;
+  --mxm-notification-close-font-size: var(--mxm-message-close-size, 16px);
+  --mxm-notification-content-font-size: var(--mxm-font-size-base);
+  --mxm-notification-content-color: var(--mxm-text-color-regular);
+  --mxm-notification-title-font-size: 16px;
+  --mxm-notification-title-color: var(--mxm-text-color-primary);
+  --mxm-notification-close-color: var(--mxm-text-color-secondary);
+  --mxm-notification-close-hover-color: var(--mxm-text-color-regular)
+}
+.mxm-notification {
+  display: flex;
+  width: var(--mxm-notification-width);
+  padding: var(--mxm-notification-padding);
+  border-radius: var(--mxm-notification-radius);
+  box-sizing: border-box;
+  border: 1px solid var(--mxm-notification-border-color);
+  position: fixed;
+  background-color: var(--mxm-bg-color-overlay);
+  box-shadow: var(--mxm-notification-shadow);
+  transition: opacity var(--mxm-transition-duration),transform var(--mxm-transition-duration),right var(--mxm-transition-duration),top .4s,bottom var(--mxm-transition-duration);
+  overflow-wrap: anywhere;
+  overflow: hidden;
+  z-index: 9999;
+
+  &.right {
+    right: 10px;
+  }
+
+  &.left {
+    left: 10px;
+  }
+
+  .mxm-notification__text {
+    margin: 0 10px;
+  }
+  .mxm-notification__icon {
+    height: var(--mxm-notification-icon-size);
+    width: var(--mxm-notification-icon-size);
+    font-size: var(--mxm-notification-icon-size);
+    color: var(--mxm-notification-icon-color);
+  }
+
+  .mxm-notification__title {
+    font-weight: 700;
+    font-size: var(--mxm-notification-title-font-size);
+    line-height: var(--mxm-notification-icon-size);
+    color: var(--mxm-notification-title-color);
+    margin: 0
+  }
+  .mxm-notification__content {
+    font-size: var(--mxm-notification-content-font-size);
+    line-height: 24px;
+    margin: 6px 0 0;
+    color: var(--mxm-notification-content-color);
+    text-align: justify
+  }
+  .mxm-notification__close {
+    position: absolute;
+    top: 18px;
+    right: 15px;
+    cursor: pointer;
+    color: var(--mxm-notification-close-color);
+    font-size: var(--mxm-notification-close-font-size)
+  }
+}
+@each $val in info,success,warning,danger { 
+  .mxm-notification--$(val) {
+    --mxm-notification-icon-color: var(--mxm-color-$(val));
+    color: var(--mxm-notification-icon-color);
+  }
+}
+.mxm-notification--error {
+  --mxm-notification-icon-color: var(--mxm-color-danger);
+  color: var(--mxm-notification-icon-color);
+}
+
+.mxm-notification-fade-enter-from {
+  &.right{
+    right: 0;
+    transform: translate(100%);
+  }
+  &.left{
+    left:0;
+    transform: translate(-100%);
+  }
+}
+.mxm-notification-fade-leave-to {
+  opacity: 0;
+}
