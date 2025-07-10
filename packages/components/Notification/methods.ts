@@ -75,7 +75,7 @@ const createNotification = (props: CreateNotificationProps): NotificationInstanc
 
   const vm = vnode.component!
   const handler: NotificationHandler = {
-    close: vm.exposed!.close()
+    close: () => vm.exposed!.close()
   }
 
   const instance: NotificationInstance = {
