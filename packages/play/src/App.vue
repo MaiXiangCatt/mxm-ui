@@ -54,6 +54,8 @@
     <br>
     <br>
     <mxm-button type="info" @click="oepnNotification1">top-right Notification test</mxm-button>
+    <mxm-button type="success" @click="openNotification2">bottom-left Notification test</mxm-button>
+    <mxm-button type="primary" @click="closeAllNotifications">关闭所有</mxm-button>
   </div>
 </template>
 
@@ -112,6 +114,19 @@ const oepnNotification1 = () => {
     title: 'test notification',
     message: 'top-right notification'
   })
+}
+
+const openNotification2 = () => {
+  MxmNotification({
+    title: 'test',
+    message: 'bottom-left notification',
+    type: 'success',
+    position: 'bottom-left'
+  })
+}
+
+const closeAllNotifications = () => {
+  MxmNotification.closeAll()
 }
 </script>
 

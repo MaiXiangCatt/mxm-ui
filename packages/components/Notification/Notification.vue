@@ -36,7 +36,7 @@
 
 <script setup lang="ts">
 import { onMounted, ref, computed, Transition } from 'vue'
-import { delay, isString } from 'lodash-es';
+import { bind, delay, isString } from 'lodash-es';
 import { typeIconMap, RenderVnode, addUnit } from '@mxm-ui/utils';
 import { useOffset } from '@mxm-ui/hooks';
 import { getLastBottomOffset } from './methods';
@@ -64,7 +64,7 @@ const boxHeight = ref(0)
 const { topOffset, bottomOffset } = useOffset({
   offset: props.offset,
   boxHeight: boxHeight,
-  getLastBottomOffset
+  getLastBottomOffset: bind(getLastBottomOffset, props)
 })
 
 const horizontalClass = computed(() => {

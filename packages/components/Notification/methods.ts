@@ -36,8 +36,9 @@ export const notificationDefaults = {
 
 
 export function getLastBottomOffset(this: NotificationProps) {
-  const instances = instancesMap.get(this.position || 'top-ritght')!
+  const instances = instancesMap.get(this.position || 'top-right')!
   const idx = findIndex(instances, {id: this.id})
+  console.log(idx)
   if(idx <= 0) return 0;
   return get(instances, [idx - 1, 'vm', 'exposed', 'bottomOffset', 'value'])
 }
