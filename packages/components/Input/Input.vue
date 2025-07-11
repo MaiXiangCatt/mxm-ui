@@ -11,11 +11,14 @@
     'is-suffix': $slots.suffix,
     'is-focus': isFocused
     }">
+    <!-- input的情况 -->
     <template v-if="type !== 'textarea'">
+      <!-- prepend -->
       <div v-if="$slots.prepend" class="mxm-input__prepend">
         <slot name="prepend"></slot>
       </div>
       <div class="mxm-input__wrapper" ref="wrapperRef">
+        <!-- prefix -->
         <span v-if="$slots.prefix" class="mxm-input__prefix">
           <slot name="prefix"></slot>
         </span>
@@ -36,30 +39,35 @@
           @focus="handlerFocus"
           @blur="handlerBlur"
           >
-          <span v-if="$slots.suffix || showClear || showPasswordSwitch" class="mxm-input__suffix">
+          <!-- suffix -->
+          <span v-if="$slots.suffix || showClear || showPasswordSwitch" class="mxm-input__suffix" @click="focus">
             <slot name="suffix"></slot>
-            <Icon
+            <mxm-icon
               v-if="showClear"
               icon="circle-xmark"
               class="mxm-input__clear"
               @click="clear"
-              @mousedown.prevent="noop"></Icon>
-            <Icon
+              @mousedown.prevent="noop"></mxm-icon>
+            <mxm-icon
               v-if="passwordVisible && showPasswordSwitch"
               icon="eye"
               class="mxm-input__password"
-              @click="togglePasswordVisible"></Icon>
-            <Icon
+              @click="togglePasswordVisible"
+              ></mxm-icon>
+            <mxm-icon
               v-if="!passwordVisible && showPasswordSwitch"
               icon="eye-slash"
               class="mxm-input__password"
-              @click="togglePasswordVisible"></Icon>
+              @click="togglePasswordVisible"
+              ></mxm-icon>
           </span>
       </div>
+      <!-- append -->
       <div v-if="$slots.append" class="mxm-input__append">
         <slot name="append"></slot>
       </div>
     </template>
+    <!-- textarea的情况 -->
     <template v-else>
       <textarea
         class="mxm-textarea__wrapper"
@@ -84,7 +92,7 @@
 import { computed, nextTick, ref, shallowRef, useAttrs, watch } from 'vue';
 import useFocusController from '@mxm-ui/hooks/useFocusController';
 import type { InputProps, InputEmits, InputInstance } from './types';
-import Icon from '../Icon/Icon.vue';
+import MxmIcon from '../Icon/Icon.vue';
 import { noop } from 'lodash-es';
 
 

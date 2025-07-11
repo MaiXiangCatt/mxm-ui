@@ -86,7 +86,7 @@ describe("Input.vue", () => {
         type: "text",
       },
       global: {
-        stubs: ["Icon"],
+        stubs: ["mxm-icon"],
       },
     });
 
@@ -126,7 +126,7 @@ describe("Input.vue", () => {
         showPassword: true,
       },
       global: {
-        stubs: ["Icon"],
+        stubs: ["mxm-icon"],
       },
     });
 
@@ -142,9 +142,9 @@ describe("Input.vue", () => {
     expect(eyeIcon.attributes("icon")).toBe("eye-slash");
 
     // // 点击 切换
-    // await eyeIcon.trigger("click");
-    // expect(input.element.type).toBe("text");
-    // // 缓存 Icon
-    // expect(wrapper.find(".mxm-input__password").attributes("icon")).toBe("eye");
+    await eyeIcon.trigger("click");
+    expect(input.element.type).toBe("text");
+    // 缓存 Icon
+    expect(wrapper.find(".mxm-input__password").attributes("icon")).toBe("eye");
   });
 });
