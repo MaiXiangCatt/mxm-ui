@@ -64,7 +64,6 @@ const emits = defineEmits<ButtonEmits>()
 
 const btnClickHandler = (e: MouseEvent) => {
   emits("click", e)
-  console.log(1)
 }
 const throttleBtnClick = throttle(btnClickHandler, props.throttleDuration)
 const realBtnClickHandler = (e: MouseEvent) => {

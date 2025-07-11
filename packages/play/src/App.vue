@@ -56,7 +56,15 @@
     <mxm-button type="info" @click="oepnNotification1">top-right Notification test</mxm-button>
     <mxm-button type="success" @click="openNotification2">bottom-left Notification test</mxm-button>
     <mxm-button type="primary" @click="closeAllNotifications">关闭所有</mxm-button>
+    <br>
+    <br>
+    <mxm-input v-model="inputValue" clearable style="width: 200px;"></mxm-input>
+    <br>
+    <mxm-input type="password" v-model="inputValue2" showPassword style="width: 240px;"></mxm-input>
+    <br>
+    <mxm-input v-model="inputValue3" placeholder="请输入内容" disabled></mxm-input>
   </div>
+
 </template>
 
 <script setup lang="ts">
@@ -128,6 +136,10 @@ const openNotification2 = () => {
 const closeAllNotifications = () => {
   MxmNotification.closeAll()
 }
+
+const inputValue = ref('')
+const inputValue2 = ref('')
+const inputValue3 = ref('')
 </script>
 
 <style scoped>
