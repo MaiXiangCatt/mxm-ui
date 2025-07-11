@@ -75,6 +75,10 @@ watch(checked, (newVal) => {
   //form校验
 })
 
+watch(() => props.modelValue, (newVal) => {
+  innerValue.value = newVal
+})
+
 defineExpose<SwitchInstance>({
   checked, 
   focus
