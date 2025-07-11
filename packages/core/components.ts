@@ -13,7 +13,8 @@ import {
   MxmDropdownItem,
   MxmMessage,
   MxmNotification,
-  MxmInput
+  MxmInput,
+  MxmSwitch
 } from "@mxm-ui/components";
 import type { Plugin } from "vue";
 
@@ -30,5 +31,6 @@ export default [
   MxmDropdownItem,
   MxmMessage,
   MxmNotification,
-  MxmInput
+  MxmInput,
+  MxmSwitch
 ] as Plugin[];

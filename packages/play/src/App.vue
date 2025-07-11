@@ -63,6 +63,11 @@
     <mxm-input type="password" v-model="inputValue2" showPassword style="width: 240px;"></mxm-input>
     <br>
     <mxm-input v-model="inputValue3" placeholder="请输入内容" disabled></mxm-input>
+    <br>
+    <br>
+    <mxm-switch v-model="switchVal" activeText="是" inactiveText="否"></mxm-switch>
+    <mxm-switch v-model="switchVal2" :activeValue="100" :inactiveValue="200"></mxm-switch>
+    {{ switchVal2 }}
   </div>
 
 </template>
@@ -140,6 +145,9 @@ const closeAllNotifications = () => {
 const inputValue = ref('')
 const inputValue2 = ref('')
 const inputValue3 = ref('')
+
+const switchVal = ref(false)
+const switchVal2 = ref(100)
 </script>
 
 <style scoped>
