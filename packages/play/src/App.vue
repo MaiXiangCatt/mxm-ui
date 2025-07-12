@@ -68,6 +68,8 @@
     <mxm-switch v-model="switchVal" activeText="是" inactiveText="否"></mxm-switch>
     <mxm-switch v-model="switchVal2" :activeValue="100" :inactiveValue="200"></mxm-switch>
     {{ switchVal2 }}
+    <br>
+    <mxm-select :options="selectOptions" v-model="selectVal" clearable></mxm-select>
   </div>
 
 </template>
@@ -148,6 +150,15 @@ const inputValue3 = ref('')
 
 const switchVal = ref(false)
 const switchVal2 = ref(100)
+
+
+const selectVal = ref('')
+const selectOptions = [
+  { label: 'test1', value: '1'},
+  { label: 'test2', value: '2'}
+]
+
+
 </script>
 
 <style scoped>

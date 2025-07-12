@@ -14,7 +14,9 @@ import {
   MxmMessage,
   MxmNotification,
   MxmInput,
-  MxmSwitch
+  MxmSwitch,
+  MxmSelect,
+  MxmOption
 } from "@mxm-ui/components";
 import type { Plugin } from "vue";
 
@@ -32,5 +34,7 @@ export default [
   MxmMessage,
   MxmNotification,
   MxmInput,
-  MxmSwitch
+  MxmSwitch,
+  MxmSelect,
+  MxmOption
 ] as Plugin[];
