@@ -8,7 +8,7 @@
 }
 
 .mxm-select{
- display: inline-block;
+  display: inline-block;
   vertical-align: middle;
   line-height: 32px;
   :deep(.mxm-tooltip__popper) {
