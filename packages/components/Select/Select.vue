@@ -219,6 +219,7 @@ function controlVisible(visible: boolean) {
   } else {
     tooltipRef.value.hide()
   }
+  //filter模式下，要对输入框进行处理
   if(props.filterable) {
     controlInputVal(visible)
   }
@@ -231,6 +232,7 @@ function controlVisible(visible: boolean) {
 function controlInputVal(visible: boolean) {
   if(!props.filterable) return;
   if(visible) {
+    //打开的时候要把inputValue置空并且重新生成一次filter后的选项
     if(selectStates.selectedOption) selectStates.inputValue = '';
     handleFilterDebounce()
   } else {
@@ -286,6 +288,8 @@ async function callRemoteMethod(method: Function, searchKey: string) {
     debugWarn(COMPONENT_NAME, 'callRemoteMethod error')
     result = []
     return Promise.reject(error)
+  } finally {
+    selectStates.loading = false
   }
   return result
 }

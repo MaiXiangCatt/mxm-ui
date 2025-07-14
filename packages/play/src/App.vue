@@ -70,7 +70,7 @@
     {{ switchVal2 }}
     <br>
     <mxm-select :options="selectOptions" v-model="selectVal" clearable></mxm-select>
-    <mxm-select>
+    <mxm-select filterable>
       <mxm-option label="Beijing" value="beijing"></mxm-option>
       <mxm-option label="Shanghai" value="Shanghai"></mxm-option>
       <mxm-option label="Hangzhou" value="hangzhou"></mxm-option>
