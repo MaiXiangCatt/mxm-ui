@@ -1,15 +1,15 @@
-import { computed } from "vue";
-import type { Ref } from "vue";
+import { computed } from 'vue'
+import type { Ref } from 'vue'
 
 interface UseOffsetOptions {
-  offset: number;
-  boxHeight: Ref<number>;
-  getLastBottomOffset: () => number;
+  offset: number
+  boxHeight: Ref<number>
+  getLastBottomOffset: () => number
 }
 
 interface UseOffsetResult {
-  topOffset: Ref<number>;
-  bottomOffset: Ref<number>;
+  topOffset: Ref<number>
+  bottomOffset: Ref<number>
 }
 
 export function useOffset(options: UseOffsetOptions): UseOffsetResult {
@@ -21,7 +21,7 @@ export function useOffset(options: UseOffsetOptions): UseOffsetResult {
 
   return {
     topOffset,
-    bottomOffset
+    bottomOffset,
   }
 }
 

@@ -1,14 +1,14 @@
-import type { Plugin } from "vue";
-import { describe, it, expect } from "vitest";
+import type { Plugin } from 'vue'
+import { describe, it, expect } from 'vitest'
 import {
   MxmAlert,
   MxmButton,
   MxmButtonGroup,
   MxmCollapse,
   MxmCollapseItem,
-  MxmIcon
+  MxmIcon,
 } from './index'
-import { map, get } from "lodash-es";
+import { map, get } from 'lodash-es'
 
 const components = [
   MxmAlert,
@@ -16,12 +16,15 @@ const components = [
   MxmButtonGroup,
   MxmCollapse,
   MxmCollapseItem,
-  MxmIcon
+  MxmIcon,
 ] as Plugin[]
 
-describe("components/index.ts", () => {
-  it.each(map(components, (c) => [get(c, "name") ?? "", c]))("%s should be exported", (_, component) => {
-    expect(component).toBeDefined();
-    expect(component.install).toBeDefined()
-  });
-});
+describe('components/index.ts', () => {
+  it.each(map(components, (c) => [get(c, 'name') ?? '', c]))(
+    '%s should be exported',
+    (_, component) => {
+      expect(component).toBeDefined()
+      expect(component.install).toBeDefined()
+    }
+  )
+})

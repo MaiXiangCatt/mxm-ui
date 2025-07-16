@@ -29,7 +29,9 @@
     </mxm-tooltip>
 
     <mxm-popconfirm title="你确定要删除吗" @confirm="confirmDelete">
-      <mxm-button type="danger">删除</mxm-button>
+      <template #reference>
+        <mxm-button type="danger">删除</mxm-button>
+      </template>
     </mxm-popconfirm>
     <br>
     <mxm-dropdown :items="dropdownItems" trigger="click">

@@ -5,7 +5,7 @@ import {
   isRef,
   unref,
   type MaybeRef,
-} from "vue";
+} from 'vue'
 
 export default function useEventListener(
   target: MaybeRef<EventTarget | HTMLElement | void>,
@@ -14,12 +14,12 @@ export default function useEventListener(
 ) {
   if (isRef(target)) {
     watch(target, (val, oldVal) => {
-      oldVal?.removeEventListener(event, handler);
-      val?.addEventListener(event, handler);
-    });
+      oldVal?.removeEventListener(event, handler)
+      val?.addEventListener(event, handler)
+    })
   } else {
-    onMounted(() => target?.addEventListener(event, handler));
+    onMounted(() => target?.addEventListener(event, handler))
   }
 
-  onBeforeUnmount(() => unref(target)?.removeEventListener(event, handler));
+  onBeforeUnmount(() => unref(target)?.removeEventListener(event, handler))
 }

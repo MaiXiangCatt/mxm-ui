@@ -1,5 +1,5 @@
-import { describe, it, expect } from "vitest";
-import { mount } from "@vue/test-utils";
+import { describe, it, expect } from 'vitest'
+import { mount } from '@vue/test-utils'
 import Switch from './Switch.vue'
 
 describe('Switch.vue', () => {
@@ -8,11 +8,11 @@ describe('Switch.vue', () => {
     expect(wrapper.find('.mxm-switch').exists()).toBeTruthy()
   })
 
-  it('should handle click event and toggle the checked state', async() => {
+  it('should handle click event and toggle the checked state', async () => {
     const wrapper = mount(Switch, {
       props: {
-        modelValue: false
-      }
+        modelValue: false,
+      },
     })
 
     await wrapper.trigger('click')
@@ -22,15 +22,14 @@ describe('Switch.vue', () => {
     await wrapper.trigger('click')
     expect(wrapper.emitted()['update:modelValue'][1]).toEqual([false])
     expect(wrapper.emitted()['change'][1]).toEqual([false])
-
   })
 
-  it('should not toggle when disabled', async() => {
-     const wrapper = mount(Switch, {
+  it('should not toggle when disabled', async () => {
+    const wrapper = mount(Switch, {
       props: {
         modelValue: false,
-        disabled: true
-      }
+        disabled: true,
+      },
     })
 
     await wrapper.trigger('click')

@@ -1,24 +1,25 @@
-import type { InjectionKey } from "vue";
-import type { SelectContext } from "./types";
+import type { InjectionKey } from 'vue'
+import type { SelectContext } from './types'
 
-export const SELECT_CTX_KEY: InjectionKey<SelectContext> = Symbol('selectContext')
+export const SELECT_CTX_KEY: InjectionKey<SelectContext> =
+  Symbol('selectContext')
 
 export const POPPER_OPTIONS: any = {
   modifiers: [
     {
-      name: "offset",
+      name: 'offset',
       options: {
-        offset: [0, 9]
-      }
+        offset: [0, 9],
+      },
     },
     {
-      name: "sameWidth",
+      name: 'sameWidth',
       enabled: true,
       fn: ({ state }: { state: any }) => {
-        state.styles.popper.width = `${state.rects.reference.width}px`;
+        state.styles.popper.width = `${state.rects.reference.width}px`
       },
-      phase: "beforeWrite",
-      requires: ["computeStyles"],
-    }
-  ]
+      phase: 'beforeWrite',
+      requires: ['computeStyles'],
+    },
+  ],
 } as const

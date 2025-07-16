@@ -1,4 +1,4 @@
-import { computed, ref } from "vue";
+import { computed, ref } from 'vue'
 
 const zIndex = ref(0)
 
@@ -14,6 +14,6 @@ export default function useZindex(initVal = 2000) {
   return {
     initialValue: initValRef,
     currentZIndex,
-    nextZindex
+    nextZindex,
   }
 }

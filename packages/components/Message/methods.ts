@@ -1,5 +1,5 @@
-import { h, isVNode, render, shallowReactive } from "vue";
-import type { 
+import { h, isVNode, render, shallowReactive } from 'vue'
+import type {
   CreateMessageProps,
   MessageInstance,
   MessageFn,
@@ -7,12 +7,12 @@ import type {
   MessageParams,
   MessageHandler,
   MessageType,
-  MessageProps} from "./types";
-import { messageTypes } from "./types";
-import { useId, useZindex } from "@mxm-ui/hooks";
-import { each, findIndex, isString, set, get } from "lodash-es";
-import MessageConstructor from "./Message.vue";
-
+  MessageProps,
+} from './types'
+import { messageTypes } from './types'
+import { useId, useZindex } from '@mxm-ui/hooks'
+import { each, findIndex, isString, set, get } from 'lodash-es'
+import MessageConstructor from './Message.vue'
 
 const instances: MessageInstance[] = shallowReactive([])
 
@@ -20,14 +20,17 @@ export const messageDefaults = {
   type: 'info',
   duration: 3000,
   offset: 10,
-  transitionName: 'fade-up'
+  transitionName: 'fade-up',
 }
 
 const { nextZindex } = useZindex()
 
 const normalizeOptions = (options: MessageParams): CreateMessageProps => {
-  const result = !options || isVNode(options) || isString(options) ? { message: options} : options
-  return {...messageDefaults, ...result} as CreateMessageProps
+  const result =
+    !options || isVNode(options) || isString(options)
+      ? { message: options }
+      : options
+  return { ...messageDefaults, ...result } as CreateMessageProps
 }
 
 const createMessage = (props: CreateMessageProps): MessageInstance => {
@@ -35,8 +38,8 @@ const createMessage = (props: CreateMessageProps): MessageInstance => {
   const container = document.createElement('div')
 
   const destroy = () => {
-    const idx = findIndex(instances, {id})
-    if(idx === -1) return;
+    const idx = findIndex(instances, { id })
+    if (idx === -1) return
 
     instances.splice(idx, 1)
     render(null, container)
@@ -46,7 +49,7 @@ const createMessage = (props: CreateMessageProps): MessageInstance => {
     ...props,
     id,
     zIndex: nextZindex(),
-    onDestroy: destroy
+    onDestroy: destroy,
   }
 
   const vnode = h(MessageConstructor, _props)
@@ -58,7 +61,7 @@ const createMessage = (props: CreateMessageProps): MessageInstance => {
   //vm其实就是组件实例，当一个vnode被渲染成一个真实的组件后，Vue会将该组件的实例挂载到 vnode 的 component property上。获取组件实例之后，我们就可以通过vm.exposed访问到组件通过defineExpose暴露出的内容，包括close的方法等等
   const vm = vnode.component!
   const handler: MessageHandler = {
-    close: () => vm.exposed!.close()
+    close: () => vm.exposed!.close(),
   }
 
   const instance: MessageInstance = {
@@ -66,7 +69,7 @@ const createMessage = (props: CreateMessageProps): MessageInstance => {
     id,
     vm,
     vnode,
-    handler
+    handler,
   }
 
   instances.push(instance)
@@ -81,21 +84,20 @@ export const message: MessageFn & Partial<Message> = (options = {}) => {
 }
 
 export function getLastBottomOffset(this: MessageProps) {
-  const idx = findIndex(instances, {id: this.id})
-  if(idx <= 0) return 0;
+  const idx = findIndex(instances, { id: this.id })
+  if (idx <= 0) return 0
   return get(instances, [idx - 1, 'vm', 'exposed', 'bottomOffset', 'value'])
 }
 
 export function closeAll(type?: MessageType) {
   each(instances, (instance) => {
-    if(type) {
-      if(instance.props.type === type) {
+    if (type) {
+      if (instance.props.type === type) {
         instance.handler.close()
       }
     } else {
       instance.handler.close()
     }
-
   })
 }
 
@@ -103,7 +105,7 @@ export function closeAll(type?: MessageType) {
 each(messageTypes, (type) => {
   set(message, type, (options: MessageParams) => {
     const normalized = normalizeOptions(options)
-    return message({...normalized, type})
+    return message({ ...normalized, type })
   })
 })
 

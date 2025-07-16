@@ -2,50 +2,62 @@
   <Transition
     :name="`mxm-notification-${transitionName}`"
     @after-leave="!visible && onDestroy()"
-    @enter="boxHeight = notificationRef.getBoundingClientRect().height">
+    @enter="boxHeight = notificationRef.getBoundingClientRect().height"
+  >
     <div
-      ref="notificationRef" 
+      v-show="visible"
+      ref="notificationRef"
       class="mxm-notification"
       :class="{
         [`mxm-notification--${type}`]: type,
         'is-close': showClose,
-        [horizontalClass]: true
+        [horizontalClass]: true,
       }"
       :style="cssStyle"
-      v-show="visible"
       role="alert"
       @mouseenter="clearTimer"
       @mouseleave="startTimer"
-      >
-      <mxm-icon class="mxm-notification__icon" :icon="iconName!"></mxm-icon>
+    >
+      <mxm-icon
+        class="mxm-notification__icon"
+        :icon="iconName!"
+      ></mxm-icon>
       <div class="mxm-notification__text">
-        <div class="mxm-notification__title"> {{ title }} </div>
+        <div class="mxm-notification__title">{{ title }}</div>
         <div class="mxm-notification__content">
           <slot>
-            <render-vnode v-if="message" :v-node="message"></render-vnode>
+            <render-vnode
+              v-if="message"
+              :v-node="message"
+            ></render-vnode>
           </slot>
         </div>
       </div>
-      <div class="mxm-notification__close" v-if="showClose">
-        <mxm-icon icon="xmark" @click.stop="close"></mxm-icon>
+      <div
+        v-if="showClose"
+        class="mxm-notification__close"
+      >
+        <mxm-icon
+          icon="xmark"
+          @click.stop="close"
+        ></mxm-icon>
       </div>
     </div>
   </Transition>
-
 </template>
 
 <script setup lang="ts">
 import { onMounted, ref, computed, Transition } from 'vue'
-import { bind, delay, isString } from 'lodash-es';
-import { typeIconMap, RenderVnode, addUnit } from '@mxm-ui/utils';
-import { useOffset } from '@mxm-ui/hooks';
-import { getLastBottomOffset } from './methods';
-import type { NotificationProps, NotificationCompInstance } from './types';
+import { bind, delay, isString } from 'lodash-es'
+import { typeIconMap, RenderVnode, addUnit } from '@mxm-ui/utils'
+import { useOffset } from '@mxm-ui/hooks'
+import { getLastBottomOffset } from './methods'
+import type { NotificationProps, NotificationCompInstance } from './types'
 
-import MxmIcon from '../Icon/Icon.vue';
+import MxmIcon from '../Icon/Icon.vue'
 
 defineOptions({
-  name: 'MxmNotification'
+  name: 'MxmNotification',
 })
 
 const props = withDefaults(defineProps<NotificationProps>(), {
@@ -54,7 +66,7 @@ const props = withDefaults(defineProps<NotificationProps>(), {
   offset: 20,
   position: 'top-right',
   showClose: true,
-  transitionName: 'fade'
+  transitionName: 'fade',
 })
 
 const notificationRef = ref()
@@ -64,11 +76,11 @@ const boxHeight = ref(0)
 const { topOffset, bottomOffset } = useOffset({
   offset: props.offset,
   boxHeight: boxHeight,
-  getLastBottomOffset: bind(getLastBottomOffset, props)
+  getLastBottomOffset: bind(getLastBottomOffset, props),
 })
 
 const horizontalClass = computed(() => {
-  if(props.position.endsWith('right')) {
+  if (props.position.endsWith('right')) {
     return 'right'
   } else {
     return 'left'
@@ -76,7 +88,7 @@ const horizontalClass = computed(() => {
 })
 
 const verticalProperty = computed(() => {
-  if(props.position.startsWith('top')) {
+  if (props.position.startsWith('top')) {
     return 'top'
   } else {
     return 'bottom'
@@ -85,14 +97,14 @@ const verticalProperty = computed(() => {
 
 const cssStyle = computed(() => ({
   [verticalProperty.value]: addUnit(topOffset.value),
-  zIndex: props.zIndex
+  zIndex: props.zIndex,
 }))
 
 const iconName = computed(() => {
-  if(props.type !== 'info') {
+  if (props.type !== 'info') {
     return typeIconMap.get(props.type)
   }
-  if(isString(props.icon)) {
+  if (isString(props.icon)) {
     return props.icon
   }
   return 'circle-info'
@@ -102,10 +114,9 @@ function close() {
   visible.value = false
 }
 
-
 let timer: number
 function startTimer() {
-  if(props.duration === 0) return;
+  if (props.duration === 0) return
   timer = delay(close, props.duration)
 }
 function clearTimer() {
@@ -119,10 +130,10 @@ onMounted(() => {
 
 defineExpose<NotificationCompInstance>({
   close,
-  bottomOffset
+  bottomOffset,
 })
 </script>
 
 <style scoped>
-@import './style.css'
+@import './style.css';
 </style>

@@ -1,29 +1,41 @@
 <template>
   <transition name="mxm-alert-fade">
-    <div class="mxm-alert"
-         v-show="visible"
-         role="alert"
-         :class="{
-          [`mxm-alert__${type}`]: type,
-          [`mxm-alert__${effect}`]: effect,
-          'text-center': center
-         }">
-      <mxm-icon v-if="showIcon"
-                class="mxm-alert__icon"
-                :class="{ 'big-icon': withDescription}"
-                :icon="iconName">
+    <div
+      v-show="visible"
+      class="mxm-alert"
+      role="alert"
+      :class="{
+        [`mxm-alert__${type}`]: type,
+        [`mxm-alert__${effect}`]: effect,
+        'text-center': center,
+      }"
+    >
+      <mxm-icon
+        v-if="showIcon"
+        class="mxm-alert__icon"
+        :class="{ 'big-icon': withDescription }"
+        :icon="iconName"
+      >
       </mxm-icon>
       <div class="mxm-alert__content">
-        <span class="mxm-alert__title"
-              :class="{'with-desc': withDescription}"
-              :style="{ display: center && !showIcon ? 'flow' : 'inline' }">
+        <span
+          class="mxm-alert__title"
+          :class="{ 'with-desc': withDescription }"
+          :style="{ display: center && !showIcon ? 'flow' : 'inline' }"
+        >
           <slot name="title">{{ title }}</slot>
         </span>
         <p class="mxm-alert__description">
           <slot>{{ description }}</slot>
         </p>
-        <div class="mxm-alert__close" v-if="closable">
-          <mxm-icon icon="xmark" @click.stop="close"></mxm-icon>
+        <div
+          v-if="closable"
+          class="mxm-alert__close"
+        >
+          <mxm-icon
+            icon="xmark"
+            @click.stop="close"
+          ></mxm-icon>
         </div>
       </div>
     </div>
@@ -31,19 +43,19 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref } from 'vue';
-import type { AlertProps, AlertEmits, AlertInstance } from './types';
-import { typeIconMap } from '@mxm-ui/utils';
-import MxmIcon from '../Icon/Icon.vue';
+import { computed, ref } from 'vue'
+import type { AlertProps, AlertEmits, AlertInstance } from './types'
+import { typeIconMap } from '@mxm-ui/utils'
+import MxmIcon from '../Icon/Icon.vue'
 
 defineOptions({
-  name: 'MxmAlert'
+  name: 'MxmAlert',
 })
 
 const props = withDefaults(defineProps<AlertProps>(), {
   closable: true,
   effect: 'light',
-  type: 'info'
+  type: 'info',
 })
 
 const emits = defineEmits<AlertEmits>()
@@ -63,7 +75,7 @@ function open() {
 
 defineExpose<AlertInstance>({
   close,
-  open
+  open,
 })
 
 const iconName = computed(() => typeIconMap.get(props.type) || 'circle-info')
@@ -71,5 +83,5 @@ const withDescription = computed(() => props.description || slots.default)
 </script>
 
 <style scoped>
-@import './style.css'
+@import './style.css';
 </style>

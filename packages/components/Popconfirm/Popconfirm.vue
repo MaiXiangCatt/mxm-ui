@@ -1,43 +1,67 @@
 <template>
-  <mxm-tooltip ref="tooltipRef" trigger="click" :hide-timeout="hideAfter">
-    <template v-slot:content>
-      <div class="mxm-popconfirm" :style="style">
+  <mxm-tooltip
+    ref="tooltipRef"
+    trigger="click"
+    :hide-timeout="hideAfter"
+  >
+    <template #content>
+      <div
+        class="mxm-popconfirm"
+        :style="style"
+      >
         <div class="mxm-popconfirm__main">
-          <mxm-icon v-if="!hideIcon && icon" :icon="icon" :color="iconColor"></mxm-icon>
+          <mxm-icon
+            v-if="!hideIcon && icon"
+            :icon="icon"
+            :color="iconColor"
+          ></mxm-icon>
           {{ title }}
         </div>
         <div class="mxm-popconfirm__action">
-          <mxm-button class="mxm-popconfirm__cancel" size="small" :type="cancelButtonType" @click="cancel">
+          <mxm-button
+            class="mxm-popconfirm__cancel"
+            size="small"
+            :type="cancelButtonType"
+            @click="cancel"
+          >
             {{ cancelButtonText }}
           </mxm-button>
-          <mxm-button class="mxm-popconfirm__confirm" size="small" :type="confirmButtonType" @click="confirm">
+          <mxm-button
+            class="mxm-popconfirm__confirm"
+            size="small"
+            :type="confirmButtonType"
+            @click="confirm"
+          >
             {{ confirmButtonText }}
           </mxm-button>
         </div>
       </div>
     </template>
 
-    <template v-if="$slots.default" v-slot:default>
-      <slot name="default"></slot>
-    </template>
-
-    <template v-if="$slots.reference" v-slot:default>
-      <slot name="reference"></slot>
+    <template #default>
+      <slot
+        v-if="$slots.default"
+        name="default"
+      ></slot>
+      <slot
+        v-if="$slots.reference"
+        name="reference"
+      ></slot>
     </template>
   </mxm-tooltip>
 </template>
 
 <script setup lang="ts">
-import MxmTooltip from '../Tooltip/Tooltip.vue';
-import MxmButton from '../Button/Button.vue';
-import MxmIcon from '../Icon/Icon.vue';
-import { ref, computed } from 'vue';
-import { addUnit } from '@mxm-ui/utils';
-import type { TooltipInstance } from '../Tooltip';
-import type { PopconfirmProps, PopconfirmEmits } from './types';
+import MxmTooltip from '../Tooltip/Tooltip.vue'
+import MxmButton from '../Button/Button.vue'
+import MxmIcon from '../Icon/Icon.vue'
+import { ref, computed } from 'vue'
+import { addUnit } from '@mxm-ui/utils'
+import type { TooltipInstance } from '../Tooltip'
+import type { PopconfirmProps, PopconfirmEmits } from './types'
 
 defineOptions({
-  name: 'MxmPopconfirm'
+  name: 'MxmPopconfirm',
 })
 
 const props = withDefaults(defineProps<PopconfirmProps>(), {
@@ -48,14 +72,14 @@ const props = withDefaults(defineProps<PopconfirmProps>(), {
   icon: 'question-circle',
   iconColor: '#f90',
   hideAfter: 200,
-  width: 150
+  width: 150,
 })
 
 const emits = defineEmits<PopconfirmEmits>()
 
 const style = computed(() => {
   return {
-    width: addUnit(props.width)
+    width: addUnit(props.width),
   }
 })
 
@@ -78,5 +102,5 @@ const cancel = (e: MouseEvent) => {
 </script>
 
 <style scoped>
-@import './style.css'
+@import './style.css';
 </style>
