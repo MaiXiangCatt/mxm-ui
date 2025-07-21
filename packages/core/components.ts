@@ -17,6 +17,8 @@ import {
   MxmSwitch,
   MxmSelect,
   MxmOption,
+  MxmForm,
+  MxmFormItem,
 } from '@mxm-ui/components'
 import type { Plugin } from 'vue'
 
@@ -37,4 +39,6 @@ export default [
   MxmSwitch,
   MxmSelect,
   MxmOption,
+  MxmForm,
+  MxmFormItem,
 ] as Plugin[]

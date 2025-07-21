@@ -12,10 +12,9 @@ import type {
   FormItemContext,
   FormContext,
   FormInstance,
-  FormValidateCallback,
 } from './types'
 import { FORM_CTX_KEY } from './constans'
-import { includes, keys, size } from 'lodash-es'
+import { includes, size } from 'lodash-es'
 import type { ValidateFieldsError } from 'async-validator'
 
 defineOptions({

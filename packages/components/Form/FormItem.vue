@@ -1,7 +1,31 @@
 <template>
-  <div class="mxm-form-item">
+  <div
+    class="mxm-form-item"
+    :class="{
+      'is-error': validateStatus === 'error',
+      'is-disabled': isDisabled,
+      'is-required': isRequired,
+      'asterisk-left': ctx?.requiredAsteriskPosition === 'left',
+      'asterisk-right': ctx?.requiredAsteriskPosition === 'right',
+    }"
+  >
+    <component
+      :is="labelFor ? 'label' : 'div'"
+      v-if="hasLabel"
+      :id="labelId"
+      class="mxm-form-item__label"
+      :class="`position-${ctx?.labelPosition ?? 'right'}`"
+      :for="labelFor"
+    >
+      <slot
+        name="label"
+        :label="currentLabel"
+      >
+        {{ currentLabel }}
+      </slot>
+    </component>
     <div class="mxm-form-item__content">
-      <slot></slot>
+      <slot :validate="validate"></slot>
       <div
         v-if="validateStatus === 'error'"
         class="mxm-form-item__error-msg"
@@ -35,17 +59,17 @@ import {
   cloneDeep,
   filter,
   get,
-  initial,
   isArray,
   isNil,
+  isNumber,
   isString,
   keys,
   size,
 } from 'lodash-es'
 import Schema, { type RuleItem } from 'async-validator'
+import { useId } from '@mxm-ui/hooks'
 import type {
   FormItemContext,
-  FormItemProps,
   FormValidateFailure,
   FormValidateCallback,
   ValidateStatus,
@@ -63,11 +87,37 @@ const props = withDefaults(defineProps<FormItemContext>(), {
 
 const slots = defineSlots()
 const ctx = inject(FORM_CTX_KEY)
+const labelId = useId().value
 
+const inputIds = ref<string[]>([])
 const validateStatus = ref<ValidateStatus>('init')
 const errMsg = ref('')
 
+const hasLabel = computed(() => !!(props.label || slots.label))
+const labelFor = computed(
+  () => props.for || (inputIds.value.length > 0 ? inputIds.value[0] : '')
+)
+const currentLabel = computed(
+  () => `${props.label ?? ''}${ctx?.labelSuffix ?? ''}`
+)
+const normalizedLabelWidth = computed(() => {
+  const _normalizeStyle = (val: number | string) => {
+    if (isNumber(val)) return `${val}px`
+    return val.endsWith('px') ? val : `${val}px`
+  }
+
+  if (props.labelWidth) return _normalizeStyle(props.labelWidth)
+  if (ctx?.labelWidth) return _normalizeStyle(ctx.labelWidth)
+  return '150px'
+})
+
 const isDisabled = computed(() => ctx?.disabled || props.disabled)
+const isRequired = computed(
+  () =>
+    (!ctx?.hideRequireAsterisk &&
+      itemRules.value.some((element) => element.required)) ||
+    props?.required
+)
 const innerValue = computed(() => {
   const model = ctx?.model
   return getValByProp(model)
@@ -151,7 +201,10 @@ function getTriggeredRules(trigger: string) {
   //我们已经用filter根据trigger属性筛选出了符合当前需要的触发条件的规则，至此trigger使命已经结束，所以我们用map把它去掉
 }
 
-const validate: FormItemInstance['validate'] = async (trigger, callback) => {
+const validate: FormItemInstance['validate'] = async (
+  trigger: string,
+  callback?: FormValidateCallback
+) => {
   if (isResetting || !props.prop || isDisabled.value) return false
   if (!validateStatus.value) {
     callback?.(false)
@@ -189,6 +242,14 @@ const clearValidate: FormItemInstance['clearValidate'] = () => {
   errMsg.value = ''
   isResetting = false
 }
+const addInputId: FormItemContext['addInputId'] = (id) => {
+  if (!inputIds.value.includes(id)) {
+    inputIds.value.push(id)
+  }
+}
+const removeInputId: FormItemContext['removeInputId'] = (id) => {
+  inputIds.value = inputIds.value.filter((i) => i !== id)
+}
 
 const formItemCtx: FormItemContext = reactive({
   ...toRefs(props),
@@ -196,8 +257,8 @@ const formItemCtx: FormItemContext = reactive({
   validate,
   resetField,
   clearValidate,
-  addInputId: () => {},
-  removeInputId: () => {},
+  addInputId,
+  removeInputId,
 })
 
 onMounted(() => {
@@ -224,4 +285,11 @@ defineExpose<FormItemInstance>({
 })
 </script>
 
-<style scoped></style>
+<style scoped>
+@import './style.css';
+
+.mxm-form-item {
+  --mxm-form-label-width: v-bind(normalizedLabelWidth) !important
+;
+}
+</style>

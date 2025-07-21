@@ -71,7 +71,7 @@ export interface FormItemInstance {
   validateMessage: Ref<string>
   validate: (
     trigger: string,
-    callback: FormValidateCallback
+    callback?: FormValidateCallback
   ) => FormValidateResult
   resetField: () => void
   clearValidate: () => void

@@ -5,6 +5,7 @@ import useDisabledStyle from './useDisabledStyle'
 import useOffset from './useOffset'
 import useZindex from './useZindex'
 import useFocusController from './useFocusController'
+import useProps from './useProp'
 
 export {
   useClickOutside,
@@ -14,4 +15,5 @@ export {
   useOffset,
   useZindex,
   useFocusController,
+  useProps,
 }

@@ -33,6 +33,7 @@
           <slot name="prefix"></slot>
         </span>
         <input
+          :id="inputId"
           ref="inputRef"
           v-model="innerValue"
           class="mxm-input__inner"
@@ -90,6 +91,7 @@
     <!-- textarea的情况 -->
     <template v-else>
       <textarea
+        :id="inputId"
         ref="textareaRef"
         v-model="innerValue"
         class="mxm-textarea__wrapper"
@@ -114,7 +116,7 @@ import { computed, nextTick, ref, shallowRef, useAttrs, watch } from 'vue'
 import useFocusController from '@mxm-ui/hooks/useFocusController'
 import MxmIcon from '../Icon/Icon.vue'
 import { noop } from 'lodash-es'
-import { useFormItem } from '../Form'
+import { useFormItem, useFormDisabled, useFormItemInputId } from '../Form'
 import { debugWarn } from '@mxm-ui/utils'
 import type { InputProps, InputEmits, InputInstance } from './types'
 
@@ -138,9 +140,11 @@ const textareaRef = shallowRef<HTMLTextAreaElement>()
 const _ref = computed(() => inputRef.value || textareaRef.value)
 
 const attrs = useAttrs()
-const { formItem } = useFormItem()
 
-const isDisabled = computed(() => props.disabled)
+// const isDisabled = computed(() => props.disabled)
+const isDisabled = useFormDisabled()
+const { formItem } = useFormItem()
+const { inputId } = useFormItemInputId(props, formItem)
 
 const showClear = computed(() => {
   if (
