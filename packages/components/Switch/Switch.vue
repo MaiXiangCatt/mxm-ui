@@ -35,7 +35,8 @@
 
 <script setup lang="ts">
 import { computed, onMounted, ref, watch } from 'vue'
-import { useId } from '@mxm-ui/hooks'
+import { useFormItem, useFormDisabled, useFormItemInputId } from '../Form'
+import { debugWarn } from '@mxm-ui/utils'
 import type { SwitchProps, SwitchEmits, SwitchInstance } from './types'
 
 defineOptions({
@@ -51,10 +52,14 @@ const props = withDefaults(defineProps<SwitchProps>(), {
 const emits = defineEmits<SwitchEmits>()
 
 const innerValue = ref(props.modelValue)
-const isDisabled = computed(() => props.disabled)
+// const isDisabled = computed(() => props.disabled)
 
 const inputRef = ref<HTMLInputElement>()
-const inputId = useId().value
+
+const { formItem } = useFormItem()
+const isDisabled = useFormDisabled()
+const { inputId } = useFormItemInputId(props, formItem)
+// const inputId = useId().value
 const checked = computed(() => innerValue.value === props.activeValue)
 
 const focus: SwitchInstance['focus'] = () => {
@@ -78,6 +83,7 @@ onMounted(() => {
 watch(checked, (newVal) => {
   inputRef.value!.checked = newVal
   //form校验
+  formItem?.validate('change').catch((err) => debugWarn(err))
 })
 
 watch(

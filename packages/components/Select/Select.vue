@@ -107,7 +107,6 @@ import type { TooltipInstance } from '../Tooltip/types'
 import type { InputInstance } from '../Input/types'
 import { POPPER_OPTIONS, SELECT_CTX_KEY } from './constant'
 import { debugWarn, RenderVnode } from '@mxm-ui/utils'
-import { useId } from '@mxm-ui/hooks'
 import useKeyMap from './useKeyMap'
 import {
   computed,
@@ -137,6 +136,7 @@ import {
   debounce,
 } from 'lodash-es'
 import { useFocusController, useClickOutside } from '@mxm-ui/hooks'
+import { useFormItem, useFormDisabled, useFormItemInputId } from '../Form'
 
 const COMPONENT_NAME = 'MxmSelect'
 defineOptions({
@@ -166,7 +166,7 @@ const selectStates = reactive<SelectStates>({
   highlightedIndex: -1,
 })
 
-const isDisabled = computed(() => props.disabled)
+// const isDisabled = computed(() => props.disabled)
 const children = computed(() => {
   return filter(slots?.default?.(), (child) => eq(child.type, MxmOption))
 })
@@ -225,7 +225,10 @@ const filterPlaceholder = computed(() => {
 })
 const filtertimeout = computed(() => (props.remote ? 300 : 100))
 
-const inputId = useId().value
+const { formItem } = useFormItem()
+const isDisabled = useFormDisabled()
+const { inputId } = useFormItemInputId(props, formItem)
+// const inputId = useId().value
 
 const {
   wrapperRef: inputWrapperRef,
@@ -410,7 +413,10 @@ function handleKeyDown(e: KeyboardEvent) {
 
 watch(
   () => props.modelValue,
-  () => {
+  (newVal, oldVal) => {
+    if (newVal !== oldVal) {
+      formItem?.validate('change').catch((err) => debugWarn(err))
+    }
     setSelected()
   }
 )

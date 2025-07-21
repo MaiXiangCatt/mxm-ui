@@ -212,6 +212,7 @@ const validate: FormItemInstance['validate'] = async (
   }
 
   const rules = getTriggeredRules(trigger)
+  //没有任何规则的时候，直接return true
   if (!rules.length) {
     callback?.(true)
     return true

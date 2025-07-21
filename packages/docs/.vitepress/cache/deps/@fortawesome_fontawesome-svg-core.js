@@ -10,8 +10,8 @@ import {
   noAuto$1,
   parse$1,
   text,
-  toHtml$1,
-} from './chunk-WDFM2ZMZ.js'
+  toHtml$1
+} from "./chunk-WDFM2ZMZ.js";
 export {
   api,
   config$1 as config,
@@ -24,6 +24,6 @@ export {
   noAuto$1 as noAuto,
   parse$1 as parse,
   text,
-  toHtml$1 as toHtml,
-}
+  toHtml$1 as toHtml
+};
 //# sourceMappingURL=@fortawesome_fontawesome-svg-core.js.map

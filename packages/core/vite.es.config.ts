@@ -9,14 +9,13 @@ import hooks from './hooksPlugin'
 
 const TRY_MOVE_STYLES_DELAY = 800 as const
 
-const COMP_NAMES = [
-  'Alert',
-  'Button',
-  'Collapse',
-  'Dropdown',
-  'Form',
-  'Icon',
-] as const
+function getDirectoriesSync(basePath: string) {
+  const entries = readdirSync(basePath, { withFileTypes: true })
+
+  return entries
+    .filter((entry) => entry.isDirectory())
+    .map((entry) => entry.name)
+}
 
 function moveStyles() {
   try {
@@ -78,10 +77,13 @@ export default defineConfig({
           if (id.includes('/packages/hooks')) {
             return 'hooks'
           }
-          if (id.includes('/packages/utils')) {
+          if (
+            id.includes('/packages/utils') ||
+            id.includes('plugin-vue:export-helper')
+          ) {
             return 'utils'
           }
-          for (const item of COMP_NAMES) {
+          for (const item of getDirectoriesSync('../components')) {
             if (id.includes(`/packages/components/${item}`)) {
               return item
             }

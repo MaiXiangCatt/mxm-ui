@@ -8,7 +8,8 @@ import {
 export default defineConfig({
   title: 'Mxm-Ui',
   description: '一个练习用的组件库',
-  base: '/mxm-ui/',
+  // base: '/mxm-ui/',部署到githubPages用这个
+  base: '/',
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
     nav: [

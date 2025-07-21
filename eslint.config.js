@@ -19,6 +19,7 @@ export default [
       'packages/docs/.vitepress/cache/',
       'packages/docs/.vitepress/dist/',
       'packages/docs/.vitepress/temp/',
+      'packages/docs/demo',
       'pnpm-lock.yaml',
     ],
   },
