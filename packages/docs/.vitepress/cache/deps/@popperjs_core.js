@@ -1,3 +1,5 @@
+import "./chunk-5WRI5ZAA.js";
+
 // ../../node_modules/.pnpm/@popperjs+core@2.11.8/node_modules/@popperjs/core/lib/enums.js
 var top = "top";
 var bottom = "bottom";
