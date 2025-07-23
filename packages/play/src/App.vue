@@ -34,11 +34,8 @@
       </template>
     </mxm-popconfirm>
     <br>
-    <mxm-dropdown :items="dropdownItems" trigger="click">
-      <span class="dropdown-link">
-        Dropdown List
-        <mxm-icon icon="angle-down"></mxm-icon>
-      </span>
+    <mxm-dropdown :items="dropdownItems" trigger="hover" split-button>
+      Dropdown List
       <!-- <template #dropdown>
         <mxm-dropdown-item>1</mxm-dropdown-item>
         <mxm-dropdown-item>2</mxm-dropdown-item>
