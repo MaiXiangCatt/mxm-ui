@@ -40,21 +40,22 @@
 </template>
 
 <script setup lang="ts">
-import type { TooltipProps, TooltipEmits, TooltipInstance } from './types'
 import { computed, ref, watch, watchEffect, onUnmounted } from 'vue'
-import type { Ref } from 'vue'
 import { bind, debounce } from 'lodash-es'
-import type { DebouncedFunc } from 'lodash-es'
 import { createPopper, type Instance } from '@popperjs/core'
 import { useClickOutside } from '@mxm-ui/hooks'
 import { useEvenstToTiggerNode } from './useEventsToTriggerNode'
+import type { TooltipProps, TooltipEmits, TooltipInstance } from './types'
+import type { ButtonInstance } from '../Button'
+import type { DebouncedFunc } from 'lodash-es'
+import type { Ref } from 'vue'
 
 defineOptions({
   name: 'MxmTooltip',
 })
 
 interface _TooltipProps extends TooltipProps {
-  virtualRef?: HTMLElement | void
+  virtualRef?: HTMLElement | ButtonInstance | void
   virtualTriggering?: boolean
 }
 
@@ -83,9 +84,13 @@ const popperNode = ref<HTMLElement>()
 //虚拟触发节点的逻辑
 const triggerNode = computed(() => {
   if (props.virtualTriggering) {
-    return props.virtualRef ?? _triggerNode.value
+    return (
+      ((props.virtualRef as ButtonInstance)?.ref as any) ??
+      (props.virtualRef as HTMLElement) ??
+      _triggerNode.value
+    )
   }
-  return _triggerNode.value
+  return _triggerNode.value as HTMLElement
 })
 
 const popperOptions = computed(() => ({

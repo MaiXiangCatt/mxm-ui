@@ -6,8 +6,8 @@
     <mxm-tooltip
       ref="tooltipRef"
       v-bind="tooltipProps"
-      :virtural-triggering="splitButton"
-      :virtural-ref="triggerRef?.ref"
+      :virtual-triggering="splitButton"
+      :virtual-ref="triggerRef"
       @visible-change="$emit('visible-change', $event)"
     >
       <mxm-button-group

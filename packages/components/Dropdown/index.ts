@@ -4,3 +4,5 @@ import { withInstall } from '@mxm-ui/utils'
 
 export const MxmDropdown = withInstall(Dropdown)
 export const MxmDropdownItem = withInstall(DropdownItem)
+
+export * from './types'
