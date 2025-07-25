@@ -84,10 +84,10 @@ const validateField: FormInstance['validateField'] = async (keys, callback) => {
   }
 }
 
-const resetFields: FormInstance['resetFields'] = (keys) => {
+const resetFields: FormInstance['resetFields'] = (keys = []) => {
   filterFields(fields, keys).forEach((field) => field.resetField())
 }
-const clearValidate: FormInstance['clearValidate'] = (keys) => {
+const clearValidate: FormInstance['clearValidate'] = (keys = []) => {
   filterFields(fields, keys).forEach((field) => field.clearValidate())
 }
 
