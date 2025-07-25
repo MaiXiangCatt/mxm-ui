@@ -11,30 +11,30 @@
   font-size: 14px;
   line-height: 20px;
   height: 32px;
-  .mxm-switch__input{
+  .mxm-switch__input {
     position: absolute;
     width: 0;
     height: 0;
     opacity: 0;
     margin: 0;
-    &:focus-visible{
-      & ~ .mxm-switch__core{
+    &:focus-visible {
+      & ~ .mxm-switch__core {
         outline: 2px solid var(--mxm-switch-on-color);
         outline-offset: 1px;
       }
     }
   }
   &.is-disabled {
-    opacity: .6;
+    opacity: 0.6;
     .mxm-switch__core {
       cursor: not-allowed;
     }
   }
-  &.is-checked{
-    .mxm-switch__core{
+  &.is-checked {
+    .mxm-switch__core {
       border-color: var(--mxm-switch-on-border-color);
       background-color: var(--mxm-switch-on-color);
-      .mxm-switch__core-action{
+      .mxm-switch__core-action {
         left: calc(100% - 17px);
       }
       .mxm-switch__core-inner {
@@ -78,36 +78,38 @@
     }
   }
   &.is-checked {
-    .mxm-switch__core .mxm-switch-core-action {
+    .mxm-switch__core .mxm-switch__core-action {
       left: calc(100% - 13px);
       color: var(--mxm-switch-on-color);
     }
   }
 }
 
-.mxm-switch__core{
+.mxm-switch__core {
   cursor: pointer;
   display: inline-flex;
   align-items: center;
   position: relative;
   height: 20px;
   min-width: 40px;
-  border:1px solid var(--mxm-switch-off-border-color);
+  border: 1px solid var(--mxm-switch-off-border-color);
   outline: none;
   border-radius: 10px;
   box-sizing: border-box;
   background: var(--mxm-switch-off-color);
-  transition: border-color var(--mxm-transition-duration),background-color var(--mxm-transition-duration);
-  .mxm-switch__core-action{
-     position: absolute;
-     border-radius: var(--mxm-border-radius-circle);
-     left: 1px;
-     width: 16px;
-     height: 16px;
-     background-color: var(--mxm-color-white);
-     transition: all var(--mxm-transition-duration);
+  transition:
+    border-color var(--mxm-transition-duration),
+    background-color var(--mxm-transition-duration);
+  .mxm-switch__core-action {
+    position: absolute;
+    border-radius: var(--mxm-border-radius-circle);
+    left: 1px;
+    width: 16px;
+    height: 16px;
+    background-color: var(--mxm-color-white);
+    transition: all var(--mxm-transition-duration);
   }
-  .mxm-switch__core-inner{
+  .mxm-switch__core-inner {
     width: 100%;
     height: 16px;
     display: flex;
@@ -115,14 +117,13 @@
     align-items: center;
     overflow: hidden;
     padding: 0 4px 0 18px;
-    .mxm-switch__core-inner-text{
+    .mxm-switch__core-inner-text {
       font-size: 12px;
       color: var(--mxm-color-white);
       user-select: none;
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
-
     }
   }
 }
