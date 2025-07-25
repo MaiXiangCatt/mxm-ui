@@ -117,6 +117,7 @@ import {
   watch,
   h,
   onMounted,
+  Fragment,
 } from 'vue'
 import type { VNode } from 'vue'
 import {
@@ -168,7 +169,10 @@ const selectStates = reactive<SelectStates>({
 
 // const isDisabled = computed(() => props.disabled)
 const children = computed(() => {
-  return filter(slots?.default?.(), (child) => eq(child.type, MxmOption))
+  const rawChildren = slots.default ? slots.default() : []
+  const flattenedChildren = flattenVNodes(rawChildren)
+  // return filter(slots?.default?.(), (child) => eq(child.type, MxmOption))
+  return filter(flattenedChildren, (child) => eq(child.type, MxmOption))
 })
 const hasChilidren = computed(() => size(children.value) > 0)
 const childrenOptions = computed(() => {
@@ -409,6 +413,18 @@ function handleKeyDown(e: KeyboardEvent) {
   if (keyMap.has(e.key)) {
     keyMap.get(e.key)?.(e)
   }
+}
+
+function flattenVNodes(children: VNode[]) {
+  const result: VNode[] = []
+  children.forEach((child) => {
+    if (child.type === Fragment) {
+      result.push(...flattenVNodes(child.children as VNode[]))
+    } else {
+      result.push(child)
+    }
+  })
+  return result
 }
 
 watch(
