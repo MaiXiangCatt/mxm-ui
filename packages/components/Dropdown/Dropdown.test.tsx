@@ -4,6 +4,7 @@ import { mount } from '@vue/test-utils'
 import type { DropdownItemProps } from './types'
 import Dropdown from './Dropdown.vue'
 import DropdownItem from './DropdownItem.vue'
+import { nextTick } from 'vue'
 
 describe('Dropdown/index.ts', () => {
   // 测试 withInstall 函数是否被正确应用
@@ -42,5 +43,35 @@ describe('Dropdown.vue', () => {
 
     expect(wrapper.text()).toContain('Default slot content')
     expect(wrapper.find('.mxm-dropdown').exists()).toBeTruthy()
+  })
+
+  it('should emit command and hide tooltip on item click', async () => {
+    const onCommand = vi.fn()
+    const wrapper = mount(Dropdown, {
+      props: {
+        trigger: 'click',
+        hideOnClick: true,
+        onCommand,
+        items: [{ label: 'Item 1', command: 'cmd1' }],
+      },
+      slots: {
+        default: () => <button id="trigger">Trigger</button>,
+      },
+      global: {
+        stubs: ['mxm-icon'],
+      },
+    })
+
+    // 由于 DropdownItem 是通过 slot 动态渲染的，你需要手动查找并点击
+    const triggerBtn = wrapper.find('#trigger')
+    await triggerBtn.trigger('click')
+    await nextTick()
+    console.log(wrapper.html())
+    const item = wrapper.findComponent(DropdownItem)
+    expect(item.exists()).toBe(true)
+
+    await item.trigger('click')
+
+    expect(onCommand).toHaveBeenCalledWith('cmd1')
   })
 })

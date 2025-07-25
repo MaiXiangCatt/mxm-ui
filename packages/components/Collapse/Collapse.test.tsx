@@ -1,6 +1,8 @@
+import { ref } from 'vue'
 import { beforeAll, describe, expect, test, vi } from 'vitest'
 import { DOMWrapper, mount, type VueWrapper } from '@vue/test-utils'
 import transitionEvents from './transitionEvents.'
+import type { CollapseItemName } from './types'
 
 import Collapse from './Collapse.vue'
 import CollapseItem from './CollapseItem.vue'
@@ -110,11 +112,43 @@ describe('Collapse.vue', () => {
     expect(onChange).not.toHaveBeenCalled()
   })
 
-  test('modelValue 变更', async () => {
-    wrapper.setValue(['b'], 'modelValue')
+  test('外部更新 modelValue 会触发 updateActiveNames', async () => {
+    const model = ref<CollapseItemName[]>(['a'])
+
+    const wrapper = mount(
+      () => (
+        <Collapse
+          modelValue={model.value}
+          onUpdate:modelValue={(val) => (model.value = val)}
+        >
+          <CollapseItem
+            name="a"
+            title="title a"
+          >
+            content a
+          </CollapseItem>
+          <CollapseItem
+            name="b"
+            title="title b"
+          >
+            content b
+          </CollapseItem>
+        </Collapse>
+      ),
+      {
+        global: {
+          stubs: ['MxmIcon'],
+        },
+        attachTo: document.body,
+      }
+    )
+
+    model.value = ['b']
     await wrapper.vm.$nextTick()
-    expect(secondHeader.classes()).toContain('is-active')
-    expect(firstHeader.classes()).not.toContain('is-active')
+
+    const headers = wrapper.findAll('.mxm-collapse-item__header')
+    expect(headers[1].classes()).toContain('is-active') // b 被激活
+    expect(headers[0].classes()).not.toContain('is-active') // a 被关闭
   })
 
   test('手风琴模式', async () => {

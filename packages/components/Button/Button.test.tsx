@@ -1,4 +1,4 @@
-import { describe, it, test, expect } from 'vitest'
+import { describe, it, test, expect, vi } from 'vitest'
 import { mount } from '@vue/test-utils'
 
 import Button from './Button.vue'
@@ -87,7 +87,55 @@ describe('Button.vue', () => {
     await wrapper.trigger('click')
     expect(wrapper.emitted('click')).toBeUndefined()
   })
+
+  //Icon test
+  it('should render icon correctly', () => {
+    const wrapper = mount(Button, {
+      props: { icon: 'search' },
+      global: {
+        stubs: ['MxmIcon'],
+      },
+    })
+    const iconElement = wrapper.findComponent(Icon)
+
+    expect(iconElement.exists()).toBeTruthy()
+    expect(iconElement.attributes('icon')).toBe('search')
+  })
+
+  //throttle mode
+
+  it('should emit click event immediately when useThrottle is false', async () => {
+    const wrapper = mount(Button, {
+      props: { useThrottle: false },
+    })
+
+    await wrapper.trigger('click')
+    await wrapper.trigger('click')
+
+    expect(wrapper.emitted('click')).toHaveLength(2)
+  })
+  it('should throttle click events when useThrottle is true', async () => {
+    const wrapper = mount(Button, {
+      props: {
+        useThrottle: true,
+        throttleDuration: 500,
+      },
+    })
+
+    vi.useFakeTimers()
+    await wrapper.trigger('click')
+    expect(wrapper.emitted('click')).toHaveLength(1)
+
+    await wrapper.trigger('click')
+    expect(wrapper.emitted('click')).toHaveLength(1)
+
+    vi.advanceTimersByTime(500)
+    vi.useRealTimers()
+    await wrapper.trigger('click')
+    expect(wrapper.emitted('click')).toHaveLength(2)
+  })
 })
+
 test('loading button', () => {
   const wrapper = mount(Button, {
     props: {

@@ -117,7 +117,7 @@ describe('Alert.vue', () => {
 
   it('should not render close icon when closable is false', () => {
     const wrapper = mount(Alert, {
-      props: { closable: false },
+      props: { closeable: false },
     })
     expect(wrapper.find('.mxm-alert__close').exists()).toBe(false)
   })
