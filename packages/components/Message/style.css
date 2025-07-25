@@ -26,7 +26,9 @@
   padding: var(--mxm-message-padding);
   display: flex;
   align-items: center;
-  transition: top var(--mxm-transition-duration), opacity var(--mxm-transition-duration),
+  transition:
+    top var(--mxm-transition-duration),
+    opacity var(--mxm-transition-duration),
     transform var(--mxm-transition-duration);
   .mxm-message__icon {
     color: var(--mxm-message-text-color);
@@ -54,7 +56,7 @@
   }
 }
 
-@each $val in info, success, warning, danger {
+@each $val in info, success, warning, danger, primary {
   .mxm-message--$(val) {
     --mxm-message-bg-color: var(--mxm-color-$(val)-light-9);
     --mxm-message-border-color: var(--mxm-color-$(val)-light-8);

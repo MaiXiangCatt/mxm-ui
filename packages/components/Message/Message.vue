@@ -30,7 +30,10 @@
           ></render-vnode>
         </slot>
       </div>
-      <div class="mxm-message__close">
+      <div
+        v-if="showClose"
+        class="mxm-message__close"
+      >
         <mxm-icon
           icon="xmark"
           @click.stop="close"
@@ -59,6 +62,7 @@ const props = withDefaults(defineProps<MessageProps>(), {
   duration: 3000,
   offset: 10,
   transitionName: 'fade-up',
+  showClose: false,
 })
 
 const visible = ref(false)

@@ -6,6 +6,7 @@ export const messageTypes = [
   'warning',
   'danger',
   'error',
+  'primary',
 ] as const
 
 export type MessageType = (typeof messageTypes)[number]
