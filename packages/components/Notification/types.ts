@@ -5,6 +5,7 @@ export const notificationTypes = [
   'success',
   'warning',
   'danger',
+  'primary',
 ] as const
 export type NotificationType = (typeof notificationTypes)[number]
 

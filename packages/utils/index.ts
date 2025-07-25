@@ -3,6 +3,7 @@ import { defineComponent } from 'vue'
 
 export const typeIconMap = new Map([
   ['info', 'circle-info'],
+  ['primary', 'circle-info'],
   ['success', 'check-circle'],
   ['warning', 'circle-exclamation'],
   ['danger', 'circle-xmark'],

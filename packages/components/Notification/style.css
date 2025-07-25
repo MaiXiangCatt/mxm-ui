@@ -11,7 +11,7 @@
   --mxm-notification-title-font-size: 16px;
   --mxm-notification-title-color: var(--mxm-text-color-primary);
   --mxm-notification-close-color: var(--mxm-text-color-secondary);
-  --mxm-notification-close-hover-color: var(--mxm-text-color-regular)
+  --mxm-notification-close-hover-color: var(--mxm-text-color-regular);
 }
 .mxm-notification {
   display: flex;
@@ -23,7 +23,12 @@
   position: fixed;
   background-color: var(--mxm-bg-color-overlay);
   box-shadow: var(--mxm-notification-shadow);
-  transition: opacity var(--mxm-transition-duration),transform var(--mxm-transition-duration),right var(--mxm-transition-duration),top .4s,bottom var(--mxm-transition-duration);
+  transition:
+    opacity var(--mxm-transition-duration),
+    transform var(--mxm-transition-duration),
+    right var(--mxm-transition-duration),
+    top 0.4s,
+    bottom var(--mxm-transition-duration);
   overflow-wrap: anywhere;
   overflow: hidden;
   z-index: 9999;
@@ -51,14 +56,14 @@
     font-size: var(--mxm-notification-title-font-size);
     line-height: var(--mxm-notification-icon-size);
     color: var(--mxm-notification-title-color);
-    margin: 0
+    margin: 0;
   }
   .mxm-notification__content {
     font-size: var(--mxm-notification-content-font-size);
     line-height: 24px;
     margin: 6px 0 0;
     color: var(--mxm-notification-content-color);
-    text-align: justify
+    text-align: justify;
   }
   .mxm-notification__close {
     position: absolute;
@@ -66,10 +71,10 @@
     right: 15px;
     cursor: pointer;
     color: var(--mxm-notification-close-color);
-    font-size: var(--mxm-notification-close-font-size)
+    font-size: var(--mxm-notification-close-font-size);
   }
 }
-@each $val in info,success,warning,danger { 
+@each $val in info, success, warning, danger, primary {
   .mxm-notification--$(val) {
     --mxm-notification-icon-color: var(--mxm-color-$(val));
     color: var(--mxm-notification-icon-color);
@@ -81,12 +86,12 @@
 }
 
 .mxm-notification-fade-enter-from {
-  &.right{
+  &.right {
     right: 0;
     transform: translate(100%);
   }
-  &.left{
-    left:0;
+  &.left {
+    left: 0;
     transform: translate(-100%);
   }
 }
