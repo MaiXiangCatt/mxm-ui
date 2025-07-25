@@ -26,7 +26,7 @@ demo-preview=../demo/Message/Basic.vue
 我们注册了一个全局的`$message`方法用于调用。Message有插件式调用、函数式调用和全局方法调用三种调用方式。
 
 ::: preview
-demo-preview=../demo/message/Test.vue
+demo-preview=../demo/Message/Test.vue
 :::
 
 ## 不同类型
@@ -34,7 +34,7 @@ demo-preview=../demo/message/Test.vue
 用来显示「成功、警告、消息、错误」类的操作反馈。通过 `type` 属性来配置。
 
 ::: preview
-demo-preview=../demo/message/Type.vue
+demo-preview=../demo/Message/Type.vue
 :::
 
 ## 可关闭的
@@ -42,7 +42,7 @@ demo-preview=../demo/message/Type.vue
 默认的 Message 是不可以被人工关闭的。 如果你需要手动关闭功能，你可以把 showClose 设置为 true 此外，和 Notification 一样，Message 拥有可控的 duration， 默认的关闭时间为 3000 毫秒，当把这个属性的值设置为 0 便表示该消息不会被自动关闭。
 
 ::: preview
-demo-preview=../demo/message/Closeable.vue
+demo-preview=../demo/Message/Closeable.vue
 :::
 
 ## 文字居中
@@ -50,7 +50,7 @@ demo-preview=../demo/message/Closeable.vue
 通过 `center` 属性来配置文字是否居中。
 
 ::: preview
-demo-preview=../demo/message/Center.vue
+demo-preview=../demo/Message/Center.vue
 :::
 
 ## 全局方法
