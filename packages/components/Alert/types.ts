@@ -4,7 +4,7 @@ export interface AlertProps {
   title?: string
   description?: string
   type?: AlertType
-  closable?: boolean
+  closeable?: boolean
   center?: boolean
   showIcon?: boolean
   effect?: 'light' | 'dark'

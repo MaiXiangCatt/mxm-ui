@@ -29,7 +29,7 @@
           <slot>{{ description }}</slot>
         </p>
         <div
-          v-if="closable"
+          v-if="closeable"
           class="mxm-alert__close"
         >
           <mxm-icon
@@ -53,7 +53,7 @@ defineOptions({
 })
 
 const props = withDefaults(defineProps<AlertProps>(), {
-  closable: true,
+  closeable: true,
   effect: 'light',
   type: 'info',
 })
