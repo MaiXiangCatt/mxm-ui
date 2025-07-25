@@ -1,6 +1,6 @@
 ---
-title: 'Collapse'
-description: 'Collapse组件文档'
+title: Collapse
+description: Collapse组件文档
 next:
   link: '/components/dropdown'
   text: 'Dropdown 下拉菜单'

@@ -1,6 +1,6 @@
 ---
-title: 'Alert'
-description: 'Alert组件文档'
+title: Alert
+description: Alert组件文档
 next:
   link: '/components/message'
   text: 'Message 消息提示'

@@ -1,6 +1,6 @@
 ---
-title: Collapse
-description: Collapse 组件文档
+title: Dropdown
+description: Dropdown 下拉菜单
 
 next:
   link: /components/alert
