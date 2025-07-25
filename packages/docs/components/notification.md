@@ -25,7 +25,7 @@ demo-preview=../demo/Notification/Basic.vue
 
 ## 不同类型的通知
 
-我们提供了四种不同类型的提醒框：`success`、`warning`、`info` 和 `error` (danger 效果和 error 相同)。
+我们提供了五种不同类型的提醒框：`success`、`warning`、`info`、`primary` 和 `error` (danger 效果和 error 相同)。
 
 ::: preview
 demo-preview=../demo/Notification/Type.vue
