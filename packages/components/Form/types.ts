@@ -62,8 +62,8 @@ export interface FormInstance {
     keys?: string[],
     callback?: FormValidateCallback
   ) => FormValidateResult
-  resetFields: (keys: string[]) => void
-  clearValidate: (keys: string[]) => void
+  resetFields: (keys?: string[]) => void
+  clearValidate: (keys?: string[]) => void
 }
 
 export interface FormItemInstance {
