@@ -3,6 +3,7 @@
   <mxm-button :plain="true" @click="open2">Success</mxm-button>
   <mxm-button :plain="true" @click="open3">Warning</mxm-button>
   <mxm-button :plain="true" @click="open4">Error</mxm-button>
+  <mxm-button :plain="true" @click="open5">Primary</mxm-button>
 </template>
 
 <script setup lang="ts">
@@ -35,4 +36,11 @@ const open4 = () => {
     type: "danger",
   });
 };
+const open5 = () => {
+  MxmMessage({
+    showClose: true,
+    message: "Hello, this is a primary message.",
+    type: "primary"
+  })
+}
 </script>

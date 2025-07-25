@@ -19,6 +19,9 @@ const open3 = () => {
 const open4 = () => {
   MxmMessage.error("Oops, this is a error message.");
 };
+const open5 = () => {
+  MxmMessage.primary('Hello, this is a primary message')
+}
 </script>
 
 <template>
@@ -26,4 +29,5 @@ const open4 = () => {
   <mxm-button :plain="true" @click="open3">Warning</mxm-button>
   <mxm-button :plain="true" @click="open1">Info</mxm-button>
   <mxm-button :plain="true" @click="open4">Error</mxm-button>
+  <mxm-button :plain="true" @click="open5">Primary</mxm-button>
 </template>
