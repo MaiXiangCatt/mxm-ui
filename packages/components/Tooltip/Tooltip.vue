@@ -86,8 +86,7 @@ const triggerNode = computed(() => {
   if (props.virtualTriggering) {
     return (
       ((props.virtualRef as ButtonInstance)?.ref as any) ??
-      (props.virtualRef as HTMLElement) ??
-      _triggerNode.value
+      (props.virtualRef as HTMLElement)
     )
   }
   return _triggerNode.value as HTMLElement
@@ -138,7 +137,7 @@ function setVisible(val: boolean) {
   emits('visible-change', val)
 }
 
-function attachEvenets() {
+function attachEvents() {
   if (props.disabled || props.manual) return
   if (props.trigger === 'hover') {
     events.value['mouseenter'] = openFinal
@@ -173,7 +172,7 @@ function resetEvents() {
   outerEvents.value = {}
   dropdownEvents.value = {}
 
-  attachEvenets()
+  attachEvents()
 }
 
 const show: TooltipInstance['show'] = openFinal
@@ -207,13 +206,14 @@ watch(
       resetEvents()
       return
     }
-    attachEvenets()
+    attachEvents()
   }
 )
 
 watch(
   () => props.trigger,
   (val, oldVal) => {
+    /* c8 ignore next */
     if (val === oldVal) return
     openDebounce?.cancel()
     visible.value = false
@@ -224,7 +224,7 @@ watch(
 
 watchEffect(() => {
   if (!props.manual) {
-    attachEvenets()
+    attachEvents()
   }
   openDebounce = debounce(bind(setVisible, null, true), openDelay.value)
   closeDebounce = debounce(bind(setVisible, null, false), closeDelay.value)

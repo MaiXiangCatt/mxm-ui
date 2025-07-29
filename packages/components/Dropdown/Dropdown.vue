@@ -1,5 +1,6 @@
 <template>
   <div
+    :id="`dropdown-${useId().value}`"
     class="mxm-dropdown"
     :class="{ 'is-disabled': props.disabled }"
   >
@@ -50,7 +51,7 @@ import MxmDropdownItem from './DropdownItem.vue'
 import { MxmButtonGroup, MxmButton } from '../Button'
 import { ref, computed, provide } from 'vue'
 import { omit, isNil } from 'lodash-es'
-import { useDisabledStyle } from '@mxm-ui/hooks'
+import { useDisabledStyle, useId } from '@mxm-ui/hooks'
 import { DROPDOWN_CTX_KEY } from './constants'
 import type { TooltipInstance } from '../Tooltip/types'
 import type { ButtonInstance } from '../Button/types'

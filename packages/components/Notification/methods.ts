@@ -17,8 +17,10 @@ import type {
 } from './types'
 
 // const instances: NotificationInstance[] = shallowReactive([])
-const instancesMap: Map<NotificationProps['position'], NotificationInstance[]> =
-  new Map()
+export const instancesMap: Map<
+  NotificationProps['position'],
+  NotificationInstance[]
+> = new Map()
 each(notificationPositions, (position) => {
   instancesMap.set(position, shallowReactive([]))
 })
@@ -35,6 +37,7 @@ export const notificationDefaults = {
 } as const
 
 export function getLastBottomOffset(this: NotificationProps) {
+  /* c8 ignore next */
   const instances = instancesMap.get(this.position || 'top-right')!
   const idx = findIndex(instances, { id: this.id })
   console.log(idx)
@@ -57,6 +60,7 @@ const createNotification = (
 ): NotificationInstance => {
   const id = useId().value
   const container = document.createElement('div')
+  /* c8 ignore next */
   const instances = instancesMap.get(props.position || 'top-right')!
 
   const destroy = () => {

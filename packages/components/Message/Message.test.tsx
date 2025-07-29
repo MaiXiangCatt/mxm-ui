@@ -1,6 +1,7 @@
 import { describe, test, expect, vi } from 'vitest'
-import { nextTick } from 'vue'
-import { message, closeAll } from './methods'
+import { nextTick, h } from 'vue'
+import { message, closeAll, instances } from './methods'
+import type { MessageType } from './types'
 
 export const rAF = async () => {
   return new Promise((res) => {
@@ -98,5 +99,85 @@ describe('createMessage', () => {
     closeAll('success')
     await rAF()
     expect(document.querySelectorAll('.mxm-message').length).toBe(1)
+  })
+
+  test('should render vnode message', async () => {
+    const vnode = h('span', 'vnode message')
+    message(vnode)
+    await rAF()
+    expect(document.querySelector('.mxm-message')).toBeTruthy()
+
+    const vNodeEl = document.querySelector('.mxm-message__content span')
+    expect(vNodeEl).toBeTruthy()
+    expect(vNodeEl!.textContent).toBe('vnode message')
+    closeAll()
+    await rAF()
+  })
+
+  test('should show close button when showClose is true', async () => {
+    message({ message: 'test message', duration: 0, showClose: true })
+    await rAF()
+    expect(document.querySelector('.mxm-message__close')).toBeTruthy()
+    closeAll()
+    await rAF()
+  })
+
+  test('should support different message types', async () => {
+    message.success!({ message: 'success message', duration: 0 })
+    await rAF()
+    const element = document.querySelector('.mxm-message')
+    expect(element).toBeTruthy()
+    expect(element?.className).toContain('mxm-message--success')
+    closeAll()
+    await rAF()
+  })
+
+  test('should support center alignment', async () => {
+    message({ message: 'center message', duration: 0, center: true })
+    await rAF()
+    const element = document.querySelector('.mxm-message')
+    expect(element).toBeTruthy()
+    expect(element?.className).toContain('text-center')
+    closeAll()
+    await rAF()
+  })
+
+  test('should handle message with no options', async () => {
+    // @ts-expect-error - Testing invalid input
+    message()
+    await rAF()
+    expect(document.querySelector('.mxm-message')).toBeTruthy()
+    closeAll()
+    await rAF()
+  })
+
+  test('should use fallback icon for invalid type', async () => {
+    message({
+      message: 'Invalid type',
+      duration: 0,
+      type: 'invalid' as MessageType,
+    })
+    await rAF()
+
+    const iconSvgElement = document.querySelector('.mxm-message__icon svg')
+    expect(iconSvgElement).toBeTruthy()
+    expect(iconSvgElement?.getAttribute('data-icon')).toBe('circle-info')
+
+    closeAll()
+    await rAF()
+  })
+
+  test('should not throw error if instance is already removed before close', async () => {
+    const messageHandler = message({
+      message: 'test',
+      duration: 0,
+    })
+    await rAF()
+    expect(instances.length).toBe(1)
+
+    instances.splice(0, 1)
+    messageHandler.close()
+    await rAF()
+    expect(instances.length).toBe(0)
   })
 })

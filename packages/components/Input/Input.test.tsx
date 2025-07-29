@@ -13,6 +13,7 @@ describe('Input.vue', () => {
       slots: {
         prepend: 'prepend',
         prefix: 'prefix',
+        append: 'append',
       },
     })
     // 针对动态 class 的测试
@@ -22,6 +23,7 @@ describe('Input.vue', () => {
 
     expect(wrapper.classes()).toContain('is-prefix')
     expect(wrapper.classes()).toContain('is-prepend')
+    expect(wrapper.classes()).toContain('is-append')
 
     // 正确的标签和节点
     expect(wrapper.find('input').exists()).toBeTruthy()
@@ -34,6 +36,8 @@ describe('Input.vue', () => {
     expect(wrapper.find('.mxm-input__prefix').exists()).toBeTruthy()
     expect(wrapper.get('.mxm-input__prefix').text()).toBe('prefix')
 
+    expect(wrapper.find('.mxm-input__append').exists()).toBeTruthy()
+    expect(wrapper.get('.mxm-input__append').text()).toBe('append')
     // 针对 v-if 的测试
     const wrapper2 = mount(Input, {
       props: {
@@ -76,6 +80,26 @@ describe('Input.vue', () => {
     // v-model 异步更新
     await wrapper.setProps({ modelValue: 'test3' })
     expect(input.element.value).toBe('test3')
+
+    const wrapper2 = mount(Input, {
+      props: {
+        modelValue: 'test',
+        'onUpdate:modelValue': (e: any) => wrapper2.setProps({ modelValue: e }),
+        type: 'textarea',
+      },
+    })
+
+    const textArea = wrapper2.get('textarea')
+
+    expect(textArea.element.value).toBe('test')
+    await textArea.setValue('test2')
+    expect(wrapper2.props('modelValue')).toBe('test2')
+    expect(textArea.element.value).toBe('test2')
+    expect(wrapper.emitted()).toHaveProperty('input')
+    expect(wrapper.emitted()).toHaveProperty('change')
+
+    await wrapper2.setProps({ modelValue: 'test3' })
+    expect(textArea.element.value).toBe('test3')
   })
 
   test('clearable', async () => {
@@ -146,5 +170,42 @@ describe('Input.vue', () => {
     expect(input.element.type).toBe('text')
     // 缓存 Icon
     expect(wrapper.find('.mxm-input__password').attributes('icon')).toBe('eye')
+  })
+
+  test('should correctly call blur and focus methods', async () => {
+    const wrapper = mount(Input, {
+      props: { modelValue: 'test' },
+      attachTo: document.body,
+    })
+    const inputEl = wrapper.find('input').element
+    await wrapper.vm.focus()
+    expect(document.activeElement).toBe(inputEl)
+    await wrapper.vm.blur()
+    expect(document.activeElement).not.toBe(inputEl)
+
+    wrapper.unmount()
+
+    const wrapper2 = mount(Input, {
+      props: { modelValue: 'test', type: 'textarea' },
+      attachTo: document.body,
+    })
+    const textareaEl = wrapper2.find('textarea').element
+    await wrapper2.vm.focus()
+    expect(document.activeElement).toBe(textareaEl)
+    await wrapper2.vm.blur()
+    expect(document.activeElement).not.toBe(textareaEl)
+  })
+
+  test('should correctly call select method', async () => {
+    const initialValue = 'test'
+    const wrapper = mount(Input, {
+      props: { modelValue: initialValue },
+    })
+
+    const inputEl = wrapper.find('input').element
+    await wrapper.vm.select()
+
+    expect(inputEl.selectionStart).toBe(0)
+    expect(inputEl.selectionEnd).toBe(initialValue.length)
   })
 })

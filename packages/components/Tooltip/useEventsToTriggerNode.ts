@@ -25,12 +25,12 @@ export function useEvenstToTiggerNode(
   const _unbindEventToVirtualTiggerNode = () => {
     const el = triggerNode.value
     isElement(el) &&
-      each(
-        ['mouseenter', 'click', 'contextmenu'],
-        (key) =>
-          _eventHandleMap.has(key) &&
+      each(Array.from(_eventHandleMap.keys()), (key) => {
+        if (_eventHandleMap.has(key)) {
           el?.removeEventListener(key, _eventHandleMap.get(key))
-      )
+          _eventHandleMap.delete(key) // 清理已移除的事件
+        }
+      })
   }
 
   onMounted(() => {

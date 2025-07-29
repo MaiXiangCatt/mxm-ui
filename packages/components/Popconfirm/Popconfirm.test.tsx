@@ -59,6 +59,17 @@ describe('Popconfirm.vue', () => {
     expect(wrapper.text()).toContain(slotContent)
   })
 
+  it(`should render slot content correctly when use reference slot`, () => {
+    const slotContent = 'Slot Content'
+    const wrapper = mount(Popconfirm, {
+      props: props,
+      slots: {
+        reference: slotContent,
+      },
+    })
+    expect(wrapper.text()).toContain(slotContent)
+  })
+
   test('popconfirm emits', async () => {
     const wrapper = mount(() => (
       <div>

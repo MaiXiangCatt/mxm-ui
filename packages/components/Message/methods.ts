@@ -14,7 +14,7 @@ import { useId, useZindex } from '@mxm-ui/hooks'
 import { each, findIndex, isString, set, get } from 'lodash-es'
 import MessageConstructor from './Message.vue'
 
-const instances: MessageInstance[] = shallowReactive([])
+export const instances: MessageInstance[] = shallowReactive([])
 
 export const messageDefaults = {
   type: 'info',
