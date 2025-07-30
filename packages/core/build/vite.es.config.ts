@@ -2,12 +2,17 @@ import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import { resolve } from 'path'
 import dts from 'vite-plugin-dts'
-import { readdirSync } from 'fs'
-import { delay } from 'lodash-es'
+import terser from '@rollup/plugin-terser'
+import { readdirSync, readdir } from 'fs'
+import { defer, delay } from 'lodash-es'
 import shell from 'shelljs'
 import hooks from './hooksPlugin'
 
 const TRY_MOVE_STYLES_DELAY = 800 as const
+
+const isProd = process.env.NODE_ENV === 'production'
+const isDev = process.env.NODE_ENV === 'development'
+const isTest = process.env.NODE_ENV === 'test'
 
 function getDirectoriesSync(basePath: string) {
   const entries = readdirSync(basePath, { withFileTypes: true })
@@ -18,12 +23,10 @@ function getDirectoriesSync(basePath: string) {
 }
 
 function moveStyles() {
-  try {
-    readdirSync('./dist/es/theme')
-    shell.mv('./dist/es/theme', './dist')
-  } catch (_) {
-    delay(moveStyles, TRY_MOVE_STYLES_DELAY)
-  }
+  readdir('./dist/es/theme', (err) => {
+    if (err) return delay(moveStyles, TRY_MOVE_STYLES_DELAY)
+    defer(() => shell.mv('./dist/es/theme', './dist'))
+  })
 }
 
 export default defineConfig({
@@ -33,6 +36,33 @@ export default defineConfig({
       tsconfigPath: '../../tsconfig.build.json',
       outDir: 'dist/types',
     }),
+    terser({
+      compress: {
+        sequences: isProd,
+        arguments: isProd,
+        drop_console: isProd && ['log'],
+        drop_debugger: isProd,
+        passes: isProd ? 4 : 1,
+        global_defs: {
+          '@DEV': JSON.stringify(isDev),
+          '@PROD': JSON.stringify(isProd),
+          '@TEST': JSON.stringify(isTest),
+        },
+      },
+      format: {
+        semicolons: false,
+        shorthand: isProd,
+        braces: !isProd,
+        beautify: !isProd,
+        comments: !isProd,
+      },
+      mangle: {
+        toplevel: isProd,
+        eval: isProd,
+        keep_classnames: isDev,
+        keep_fnames: isDev,
+      },
+    }),
     hooks({
       rmFiles: ['./dist/es', './dist/theme', './dist/types'],
       afterBuild: moveStyles,
@@ -40,9 +70,11 @@ export default defineConfig({
   ],
   build: {
     outDir: 'dist/es',
+    minify: false,
     cssCodeSplit: true,
+    sourcemap: !isProd,
     lib: {
-      entry: resolve(__dirname, './index.ts'),
+      entry: resolve(__dirname, '../index.ts'),
       name: 'mxm-ui',
       fileName: 'index',
       formats: ['es'],

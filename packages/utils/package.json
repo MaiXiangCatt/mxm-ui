@@ -5,7 +5,8 @@
   "private": true,
   "main": "index.js",
   "scripts": {
-    "test": "vitest --run --coverage"
+    "test": "vitest --run --coverage",
+    "test:watch": "vitest --coverage"
   },
   "keywords": [],
   "author": "",
