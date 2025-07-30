@@ -69,12 +69,15 @@
     {{ switchVal2 }}
     <br>
     <mxm-select :options="selectOptions" v-model="selectVal" clearable></mxm-select>
-    <mxm-select filterable>
+    <mxm-select filterable ref="selectRef" v-model="selectVal2">
       <mxm-option label="Beijing" value="beijing"></mxm-option>
       <mxm-option label="Shanghai" value="Shanghai"></mxm-option>
       <mxm-option label="Hangzhou" value="hangzhou"></mxm-option>
       <mxm-option label="Nanjing" value="nanjing"></mxm-option>
     </mxm-select>
+    <br>
+    <mxm-button type="primary" @click="focusSelect">Focus</mxm-button>
+    <mxm-button type="primary" @click="blurSelect">Blur</mxm-button>
   </div>
 
 </template>
@@ -163,7 +166,16 @@ const selectOptions = [
   { label: 'test2', value: '2'}
 ]
 
-
+const selectVal2 = ref('')
+const selectRef = ref()
+const focusSelect = () => {
+  selectRef.value.focus()
+}
+const blurSelect = () => {
+  setTimeout(() => {
+    selectRef.value.blur()
+  }, 5000);
+}
 </script>
 
 <style scoped>

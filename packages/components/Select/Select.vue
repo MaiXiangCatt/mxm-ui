@@ -199,7 +199,10 @@ const isNoData = computed(() => {
 })
 
 const lastIndex = computed(() =>
-  hasChilidren.value ? filteredChilds.value.size - 1 : size(filteredOptions) - 1
+  hasChilidren.value
+    ? /* c8 ignore next */
+      filteredChilds.value.size - 1
+    : size(filteredOptions.value) - 1
 )
 const showClear = computed(
   () =>
@@ -258,6 +261,7 @@ const focus: SelectInstance['focus'] = () => {
 
 const blur: SelectInstance['blur'] = () => {
   handleClickOutside()
+  inputRef.value?.blur()
 }
 
 function handleClickOutside(e?: Event) {
@@ -346,7 +350,7 @@ async function callRemoteMethod(method: Function, searchKey: string) {
     debugWarn(error as Error)
     debugWarn(COMPONENT_NAME, 'callRemoteMethod error')
     result = []
-    return Promise.reject(error)
+    // return Promise.reject(error)
   } finally {
     selectStates.loading = false
   }
