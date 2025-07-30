@@ -4,6 +4,8 @@ Vue3 + TS 仿 ElementPlus 打造的组件库
 
 一款功能全面、易用性强、文档丰富的UI组件库，为开发者提供高效的界面构建解决方案。
 
+<a><img src="https://img.shields.io/codecov/c/github/MaiXiangCatt/mxm-ui/main.svg?logo=vitest"></a>
+
 ## 特性
 
 ### 功能覆盖和兼容性
