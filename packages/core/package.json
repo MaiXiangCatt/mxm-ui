@@ -1,11 +1,23 @@
 {
-  "name": "mxm-ui",
+  "name": "@maixiangcat/mxm-ui",
   "version": "1.0.0",
   "description": "Components library by Vue3 + TS",
   "type": "module",
   "main": "./dist/umd/index.umd.cjs",
   "module": "./dist/es/index.js",
   "types": "./dist/types/core/index.d.ts",
+  "keywords": [
+    "Components",
+    "UI",
+    "Vue3"
+  ],
+  "author": "maixiangcat",
+  "license": "MIT",
+  "homepage": "https://maixiangcatt.github.io/mxm-ui/",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/MaiXiangCatt/mxm-ui"
+  },
   "files": [
     "dist"
   ],
@@ -44,9 +56,6 @@
   "peerDependencies": {
     "vue": "^3.4.19"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
   "packageManager": "pnpm@10.8.0",
   "devDependencies": {
     "@rollup/plugin-terser": "^0.4.4",
