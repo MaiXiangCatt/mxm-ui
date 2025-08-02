@@ -29,7 +29,9 @@
     "build-only": "run-p build-es build-umd",
     "build-umd": "vite build --config build/vite.umd.config.ts",
     "build-es": "vite build --config build/vite.es.config.ts",
-    "release": "release-it"
+    "release": "release-it",
+    "clean": "rimraf dist",
+    "prepublishOnly": "pnpm build"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.5.1",
