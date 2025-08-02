@@ -1,7 +1,8 @@
 {
   "name": "@mxm-ui/workspace",
   "version": "1.0.0",
-  "description": "",
+  "description": "A Vue3 UI component library",
+  "private": true,
   "type": "module",
   "main": "index.js",
   "scripts": {
@@ -20,9 +21,21 @@
     "lint:fix": "eslint --fix",
     "prepare": "husky"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "keywords": [
+    "Components",
+    "UI",
+    "Vue3"
+  ],
+  "author": "maixiangcat",
+  "license": "MIT",
+  "homepage": "https://maixiangcatt.github.io/mxm-ui/",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/MaiXiangCatt/mxm-ui"
+  },
+  "files": [
+    "dist"
+  ],
   "packageManager": "pnpm@10.8.0",
   "devDependencies": {
     "@commitlint/cli": "^19.8.1",
