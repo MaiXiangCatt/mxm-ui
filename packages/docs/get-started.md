@@ -10,7 +10,7 @@ next:
 ## 安装
 
 ```bash
-npm i @mxm-ui --save
+npm i @maixiangcat/mxm-ui --save
 ```
 
 ## 开始使用
@@ -19,9 +19,9 @@ npm i @mxm-ui --save
 
 ```js
 // 引入所有组件
-import MxmUI from 'mxm-ui'
+import MxmUI from '@maixiangcat/mxm-ui'
 // 引入样式
-import 'mxm-ui/dist/index.css'
+import '@maixiangcat/mxm-ui/dist/index.css'
 
 import App from './App.vue'
 // 全局使用
