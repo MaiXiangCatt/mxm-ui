@@ -21,6 +21,10 @@
   "files": [
     "dist"
   ],
+  "sideEffects": [
+    "./dist/index.css",
+    "./dist/theme/*.css"
+  ],
   "exports": {
     ".": {
       "import": "./dist/es/index.js",
@@ -32,9 +36,6 @@
       "require": "./dist/"
     }
   },
-  "sideEffects": [
-    "./dist/index.css"
-  ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "run-s build-only",
@@ -49,7 +50,6 @@
     "@fortawesome/fontawesome-svg-core": "^6.5.1",
     "@fortawesome/free-solid-svg-icons": "^6.5.1",
     "@fortawesome/vue-fontawesome": "^3.0.6",
-    "@mxm-ui/components": "workspace:*",
     "@popperjs/core": "^2.11.8",
     "async-validator": "^4.2.5"
   },

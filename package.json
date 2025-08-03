@@ -16,7 +16,7 @@
     "test-utils": "pnpm --filter @mxm-ui/utils test",
     "test-utils:watch": "pnpm --filter @mxm-ui/utils test:watch",
     "test-hooks": "pnpm --filter @mxm-ui/hooks test",
-    "build": "pnpm --filter mxm-ui build",
+    "build": "pnpm --filter @maixiangcat/mxm-ui build",
     "lint": "eslint",
     "lint:fix": "eslint --fix",
     "prepare": "husky"
@@ -77,13 +77,14 @@
     "vue-tsc": "^1.8.27"
   },
   "dependencies": {
+    "@mxm-ui/components": "workspace:*",
     "@mxm-ui/hooks": "workspace:*",
     "@mxm-ui/theme": "workspace:*",
     "@mxm-ui/utils": "workspace:*",
     "@popperjs/core": "^2.11.8",
     "async-validator": "^4.2.5",
     "lodash-es": "^4.17.21",
-    "mxm-ui": "workspace:*",
+    "@maixiangcat/mxm-ui": "workspace:*",
     "vue": "^3.4.19"
   },
   "pnpm": {
